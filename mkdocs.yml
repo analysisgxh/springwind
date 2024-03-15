@@ -29,7 +29,7 @@ theme:
 
   plugins:
   # - social
-  - mkdocs-pdf
+    - mkdocs-pdf
 
 extra:
   social:
