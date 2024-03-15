@@ -1,1 +1,1 @@
-![Alt textff](lectures_2017.pdf){ type=application/pdf }
+![Alt textff](./lectures_2017.pdf){ type=application/pdf }
