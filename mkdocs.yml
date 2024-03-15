@@ -32,7 +32,11 @@ theme:
     - mkdocs-pdf
 
 extra:
-  social:
+ 
+  -mdx_math:
+        enable_dollar_delimiter: True
+  
+  -social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/james-willett
     - icon: fontawesome/brands/twitter
@@ -56,6 +60,15 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.pathconverter:
+      base_path:  # default: ''
+      relative_path: '' # default ''
+      absolute: true # default: false
+      tags: 'a script img link object embed'
+
+extra_javascript: 
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
 
 copyright: |
   &copy; 2023 <a href="https://github.com/james-willett"  target="_blank" rel="noopener">James Willett</a>

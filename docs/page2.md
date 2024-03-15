@@ -1,2 +1,4 @@
-![Alt textff](lectures_2017.pdf){ type=application/pdf }
-xxx
+## 2023.11.10
+
+$p \in M$ ,M is a smooth manifold.consider all pairs (f,U),where U is an open neigh  
+
