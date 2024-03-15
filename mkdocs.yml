@@ -27,8 +27,9 @@ theme:
       primary: teal
       accent: lime
 
-# plugins:
+  plugins:
   # - social
+  - mkdocs-pdf
 
 extra:
   social:
