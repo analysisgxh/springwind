@@ -1,0 +1,1742 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Topology%20and%20Smooth%20Manifold/">
+      
+      
+        <link rel="next" href="../test/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>C - Smile</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Smile" class="md-header__button md-logo" aria-label="Smile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smile
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              C
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Welcome to MkDocs
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../Topology%20and%20Smooth%20Manifold/" class="md-tabs__link">
+        
+  
+    
+  
+  Topology and Smooth Manifold
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  C
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../test/" class="md-tabs__link">
+        
+  
+    
+  
+  Test
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Smile" class="md-nav__button md-logo" aria-label="Smile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Smile
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to MkDocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Topology%20and%20Smooth%20Manifold/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Topology and Smooth Manifold
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    C
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    C
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元運算號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二元關係符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      邏輯符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    <span class="md-ellipsis">
+      上標、下標及Head
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      大尺寸運算符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      標準函式符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      根號與分數
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      微積分符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      二項式係數
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      箭號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      分隔符號
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      希臘字母
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      陣列與方程式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      空格
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      書寫時, 英文字體顯示
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式對齊
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Test
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>C</h1>
+
+<h2 id="_1">二元運算號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(+\)</span></td>
+<td>+</td>
+<td></td>
+<td><span class="arithmatex">\(-\)</span></td>
+<td>-</td>
+<td></td>
+<td><span class="arithmatex">\(\pm\)</span></td>
+<td>\pm</td>
+<td></td>
+<td><span class="arithmatex">\(\mp\)</span></td>
+<td>\mp</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\times\)</span></td>
+<td>\times</td>
+<td></td>
+<td><span class="arithmatex">\(\ast\)</span></td>
+<td>\ast</td>
+<td></td>
+<td><span class="arithmatex">\(\star\)</span></td>
+<td>\star</td>
+<td></td>
+<td><span class="arithmatex">\(\cdot\)</span></td>
+<td>\cdot</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\div\)</span></td>
+<td>\div</td>
+<td></td>
+<td><span class="arithmatex">\(\setminus\)</span></td>
+<td>\setminus</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\oplus\)</span></td>
+<td>\oplus</td>
+<td></td>
+<td><span class="arithmatex">\(\ominus\)</span></td>
+<td>\ominus</td>
+<td></td>
+<td><span class="arithmatex">\(\otimes\)</span></td>
+<td>\otimes</td>
+<td></td>
+<td><span class="arithmatex">\(\odot\)</span></td>
+<td>\odot</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\oslash\)</span></td>
+<td>\oslash</td>
+<td></td>
+<td><span class="arithmatex">\(\bigcirc\)</span></td>
+<td>\bigcirc</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\vee\)</span></td>
+<td>\vee</td>
+<td></td>
+<td><span class="arithmatex">\(\wedge\)</span></td>
+<td>\wedge</td>
+<td></td>
+<td><span class="arithmatex">\(\uplus\)</span></td>
+<td>\uplus</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\circ\)</span></td>
+<td>\circ</td>
+<td></td>
+<td><span class="arithmatex">\(\bullet\)</span></td>
+<td>\bullet</td>
+<td></td>
+<td><span class="arithmatex">\(\diamond\)</span></td>
+<td>\diamond</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\triangleright\)</span></td>
+<td>\triangleright</td>
+<td></td>
+<td><span class="arithmatex">\(\triangleleft\)</span></td>
+<td>\triangleleft</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">二元關係符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(&lt;\)</span></td>
+<td>&lt;</td>
+<td></td>
+<td><span class="arithmatex">\(&gt;\)</span></td>
+<td>&gt;</td>
+<td></td>
+<td><span class="arithmatex">\(=\)</span></td>
+<td>=</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\le\)</span></td>
+<td>\le</td>
+<td></td>
+<td><span class="arithmatex">\(\ge\)</span></td>
+<td>\ge</td>
+<td></td>
+<td><span class="arithmatex">\(\equiv\)</span></td>
+<td>\equiv</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\ll\)</span></td>
+<td>\ll</td>
+<td></td>
+<td><span class="arithmatex">\(\gg\)</span></td>
+<td>\gg</td>
+<td></td>
+<td><span class="arithmatex">\(\doteq\)</span></td>
+<td>\doteq</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\prec\)</span></td>
+<td>\prec</td>
+<td></td>
+<td><span class="arithmatex">\(\succ\)</span></td>
+<td>\succ</td>
+<td></td>
+<td><span class="arithmatex">\(\sim\)</span></td>
+<td>\sim</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\preceq\)</span></td>
+<td>\preceq</td>
+<td></td>
+<td><span class="arithmatex">\(\succeq\)</span></td>
+<td>\succeq</td>
+<td></td>
+<td><span class="arithmatex">\(\simeq\)</span></td>
+<td>\simeq</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\subset\)</span></td>
+<td>\subset</td>
+<td></td>
+<td><span class="arithmatex">\(\supset\)</span></td>
+<td>\supset</td>
+<td></td>
+<td><span class="arithmatex">\(\approx\)</span></td>
+<td>\approx</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\subseteq\)</span></td>
+<td>\subseteq</td>
+<td></td>
+<td><span class="arithmatex">\(\supseteq\)</span></td>
+<td>\supseteq</td>
+<td></td>
+<td><span class="arithmatex">\(\cong\)</span></td>
+<td>\cong</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sqsubset\)</span></td>
+<td>\sqsubset</td>
+<td></td>
+<td><span class="arithmatex">\(\sqsupset\)</span></td>
+<td>\sqsupset</td>
+<td></td>
+<td><span class="arithmatex">\(\Join\)</span></td>
+<td>\cong</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sqsubseteq\)</span></td>
+<td>\sqsubseteq</td>
+<td></td>
+<td><span class="arithmatex">\(\sqsupseteq\)</span></td>
+<td>\sqsupseteq</td>
+<td></td>
+<td><span class="arithmatex">\(\bowtie\)</span></td>
+<td>\bowtie</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\in\)</span></td>
+<td>\in</td>
+<td></td>
+<td><span class="arithmatex">\(\ni\)</span></td>
+<td>\ni</td>
+<td></td>
+<td><span class="arithmatex">\(\propto\)</span></td>
+<td>\propto</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\vdash\)</span></td>
+<td>\vdash</td>
+<td></td>
+<td><span class="arithmatex">\(\dashv\)</span></td>
+<td>\dashv</td>
+<td></td>
+<td><span class="arithmatex">\(\models\)</span></td>
+<td>\models</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\perp\)</span></td>
+<td>\perp</td>
+<td></td>
+<td><span class="arithmatex">\(\mid\)</span></td>
+<td>\mid</td>
+<td></td>
+<td><span class="arithmatex">\(\parallel\)</span></td>
+<td>\parallel</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\smile\)</span></td>
+<td>\smile</td>
+<td></td>
+<td><span class="arithmatex">\(\frown\)</span></td>
+<td>\frown</td>
+<td></td>
+<td><span class="arithmatex">\(\asymp\)</span></td>
+<td>\asymp</td>
+</tr>
+</tbody>
+</table>
+<p>可在前面加上 \not 得到否定形式，ex：<code>\not &amp;lt;</code> 得到 <span class="arithmatex">\(\not &lt;\)</span></p>
+<h2 id="_3">邏輯符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\forall\)</span></td>
+<td>\forall</td>
+<td></td>
+<td><span class="arithmatex">\(\exists\)</span></td>
+<td>\exists</td>
+<td></td>
+<td><span class="arithmatex">\(\nexists\)</span></td>
+<td>\nexists</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\therefore\)</span></td>
+<td>\therefore</td>
+<td></td>
+<td><span class="arithmatex">\(\because\)</span></td>
+<td>\because</td>
+<td></td>
+<td><span class="arithmatex">\(\And\)</span></td>
+<td>\And</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\lor\)</span></td>
+<td>\lor</td>
+<td></td>
+<td><span class="arithmatex">\(\vee\)</span></td>
+<td>\vee</td>
+<td></td>
+<td><span class="arithmatex">\(\curlyvee\)</span></td>
+<td>\curlyvee</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\bigvee\)</span></td>
+<td>\bigvee</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\land\)</span></td>
+<td>\land</td>
+<td></td>
+<td><span class="arithmatex">\(\wedge\)</span></td>
+<td>\wedge</td>
+<td></td>
+<td><span class="arithmatex">\(\curlywedge\)</span></td>
+<td>\curlywedge</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\bigwedge\)</span></td>
+<td>\bigwedge</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="head">上標、下標及Head</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(a^b\)</span></td>
+<td>a^b</td>
+<td></td>
+<td><span class="arithmatex">\(a_t\)</span></td>
+<td>a_t</td>
+<td></td>
+<td><span class="arithmatex">\(a^b_t\)</span></td>
+<td>a^b_t</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a^{b+1}_{t+1}\)</span></td>
+<td>a^{b+1}_{t+1}</td>
+<td></td>
+<td><span class="arithmatex">\(\overline{m+n}\)</span></td>
+<td>\overline{m+n}</td>
+<td></td>
+<td><span class="arithmatex">\(\underline{m+n}\)</span></td>
+<td>\underline{m+n}</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\overbrace{m+\cdots+n}^{26}\)</span></td>
+<td>\overbrace{m+\cdots+n}^{26}</td>
+<td></td>
+<td><span class="arithmatex">\(\underbrace{m+\cdots+n}_{26}\)</span></td>
+<td>\underbrace{m+\cdots+n}_{26}</td>
+<td></td>
+<td><span class="arithmatex">\(\bar{a}\)</span></td>
+<td>\bar{a}</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\vec{a}\)</span></td>
+<td>\vec{a}</td>
+<td></td>
+<td><span class="arithmatex">\(\hat{a}\)</span></td>
+<td>\hat{a}</td>
+<td></td>
+<td><span class="arithmatex">\(\dot{a}\)</span></td>
+<td>\dot{a}</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\overrightarrow{ab}\)</span></td>
+<td>\overrightarrow{ab}</td>
+<td></td>
+<td><span class="arithmatex">\(\overleftarrow{ab}\)</span></td>
+<td>\overleftarrow{ab}</td>
+<td></td>
+<td><span class="arithmatex">\(\widehat{abc}\)</span></td>
+<td>\widehat{abc}</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\overset{\frown} {ab}\)</span></td>
+<td ab="ab">\overset{\frown}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">大尺寸運算符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\sum\)</span></td>
+<td>\sum</td>
+<td></td>
+<td><span class="arithmatex">\(\bigcap\)</span></td>
+<td>\bigcap</td>
+<td></td>
+<td><span class="arithmatex">\(\bigcup\)</span></td>
+<td>\bigcup</td>
+<td></td>
+<td><span class="arithmatex">\(\biguplus\)</span></td>
+<td>\biguplus</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\bigsqcup\)</span></td>
+<td>\bigsqcup</td>
+<td></td>
+<td><span class="arithmatex">\(\prod\)</span></td>
+<td>\prod</td>
+<td></td>
+<td><span class="arithmatex">\(\coprod\)</span></td>
+<td>\coprod</td>
+<td></td>
+<td><span class="arithmatex">\(\bigodot\)</span></td>
+<td>\bigodot</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\bigotimes\)</span></td>
+<td>\bigotimes</td>
+<td></td>
+<td><span class="arithmatex">\(\bigoplus\)</span></td>
+<td>\bigoplus</td>
+<td></td>
+<td><span class="arithmatex">\(\bigwedge\)</span></td>
+<td>\bigwedge</td>
+<td></td>
+<td><span class="arithmatex">\(\bigvee\)</span></td>
+<td>\bigvee</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\int\)</span></td>
+<td>\int</td>
+<td></td>
+<td><span class="arithmatex">\(\oint\)</span></td>
+<td>\oint</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">標準函式符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\sin\)</span></td>
+<td>\sin</td>
+<td></td>
+<td><span class="arithmatex">\(\cos\)</span></td>
+<td>\cos</td>
+<td></td>
+<td><span class="arithmatex">\(\tan\)</span></td>
+<td>\tan</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sec\)</span></td>
+<td>\sec</td>
+<td></td>
+<td><span class="arithmatex">\(\csc\)</span></td>
+<td>\csc</td>
+<td></td>
+<td><span class="arithmatex">\(\cot\)</span></td>
+<td>\cot</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\arcsin\)</span></td>
+<td>\arcsin</td>
+<td></td>
+<td><span class="arithmatex">\(\arccos\)</span></td>
+<td>\arccos</td>
+<td></td>
+<td><span class="arithmatex">\(\arctan\)</span></td>
+<td>\arctan</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sinh\)</span></td>
+<td>\sinh</td>
+<td></td>
+<td><span class="arithmatex">\(\cosh\)</span></td>
+<td>\cosh</td>
+<td></td>
+<td><span class="arithmatex">\(\tanh\)</span></td>
+<td>\tanh</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\exp\)</span></td>
+<td>\exp</td>
+<td></td>
+<td><span class="arithmatex">\(\log\)</span></td>
+<td>\log</td>
+<td></td>
+<td><span class="arithmatex">\(\ln\)</span></td>
+<td>\ln</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\lim\)</span></td>
+<td>\lim</td>
+<td></td>
+<td><span class="arithmatex">\(\liminf\)</span></td>
+<td>\liminf</td>
+<td></td>
+<td><span class="arithmatex">\(\limsup\)</span></td>
+<td>\limsup</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\inf\)</span></td>
+<td>\inf</td>
+<td></td>
+<td><span class="arithmatex">\(\max\)</span></td>
+<td>\max</td>
+<td></td>
+<td><span class="arithmatex">\(\min\)</span></td>
+<td>\min</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\deg\)</span></td>
+<td>\deg</td>
+<td></td>
+<td><span class="arithmatex">\(\arg\)</span></td>
+<td>\arg</td>
+<td></td>
+<td><span class="arithmatex">\(\gcd\)</span></td>
+<td>\gcd</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">根號與分數</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\surd\)</span></td>
+<td>\surd</td>
+<td></td>
+<td><span class="arithmatex">\(\sqrt{2}\)</span></td>
+<td>\sqrt{2}</td>
+<td></td>
+<td><span class="arithmatex">\(\sqrt[n]{}\)</span></td>
+<td>\sqrt[n]{}</td>
+<td></td>
+<td><span class="arithmatex">\(\sqrt[3]{2}\)</span></td>
+<td>\sqrt[3]{2}</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\frac{2}{4}\)</span></td>
+<td>\frac{2}{4}</td>
+<td></td>
+<td><span class="arithmatex">\(\tfrac{2}{4}\)</span></td>
+<td>\tfrac{2}{4}</td>
+<td></td>
+<td><span class="arithmatex">\(\cfrac{2}{4}\)</span></td>
+<td>\cfrac{2}{4}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">微積分符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\nabla{x}\)</span></td>
+<td>\nabla{x}</td>
+<td></td>
+<td><span class="arithmatex">\(\partial{x}\)</span></td>
+<td>\partial{x}</td>
+<td></td>
+<td><span class="arithmatex">\(x^{\prime}\)</span></td>
+<td>x^{\prime}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">二項式係數</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\dbinom{n}{r}\)</span></td>
+<td>\dbinom{n}{r}</td>
+<td></td>
+<td><span class="arithmatex">\(\binom{n}{n-r}\)</span></td>
+<td>\binom{n}{n-r}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">箭號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\leftarrow\)</span></td>
+<td>\leftarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\rightarrow\)</span></td>
+<td>\rightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\longleftarrow\)</span></td>
+<td>\longleftarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\longrightarrow\)</span></td>
+<td>\longrightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Leftarrow\)</span></td>
+<td>\Leftarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\Rightarrow\)</span></td>
+<td>\Rightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Longleftarrow\)</span></td>
+<td>\Longleftarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\Longrightarrow\)</span></td>
+<td>\Longrightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\leftharpoonup\)</span></td>
+<td>\leftharpoonup</td>
+<td></td>
+<td><span class="arithmatex">\(\rightharpoonup\)</span></td>
+<td>\rightharpoonup</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\leftharpoondown\)</span></td>
+<td>\leftharpoondown</td>
+<td></td>
+<td><span class="arithmatex">\(\rightharpoondown\)</span></td>
+<td>\rightharpoondown</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\hookleftarrow\)</span></td>
+<td>\hookleftarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\hookrightarrow\)</span></td>
+<td>\hookrightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mapsto\)</span></td>
+<td>\mapsto</td>
+<td></td>
+<td><span class="arithmatex">\(\longmapsto\)</span></td>
+<td>\longmapsto</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\leftrightarrow\)</span></td>
+<td>\leftrightarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\longleftrightarrow\)</span></td>
+<td>\longleftrightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Leftrightarrow\)</span></td>
+<td>\Leftrightarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\Longleftrightarrow\)</span></td>
+<td>\Longleftrightarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\rightleftharpoons\)</span></td>
+<td>\rightleftharpoons</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\uparrow\)</span></td>
+<td>\uparrow</td>
+<td></td>
+<td><span class="arithmatex">\(\downarrow\)</span></td>
+<td>\downarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\Uparrow\)</span></td>
+<td>\Uparrow</td>
+<td></td>
+<td><span class="arithmatex">\(\Downarrow\)</span></td>
+<td>\Downarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\updownarrow\)</span></td>
+<td>\updownarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\Updownarrow\)</span></td>
+<td>\Updownarrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\nearrow\)</span></td>
+<td>\nearrow</td>
+<td></td>
+<td><span class="arithmatex">\(\searrow\)</span></td>
+<td>\searrow</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\swarrow\)</span></td>
+<td>\swarrow</td>
+<td></td>
+<td><span class="arithmatex">\(\nwarrow\)</span></td>
+<td>\nwarrow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">分隔符號</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\((\)</span></td>
+<td>(</td>
+<td></td>
+<td><span class="arithmatex">\()\)</span></td>
+<td>)</td>
+<td></td>
+<td><span class="arithmatex">\([\)</span></td>
+<td>[</td>
+<td></td>
+<td><span class="arithmatex">\(]\)</span></td>
+<td>]</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\{\)</span></td>
+<td>\{</td>
+<td></td>
+<td><span class="arithmatex">\(\}\)</span></td>
+<td>\}</td>
+<td></td>
+<td><span class="arithmatex">\(\langle\)</span></td>
+<td>\langle</td>
+<td></td>
+<td><span class="arithmatex">\(\rangle\)</span></td>
+<td>\rangle</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\lfloor\)</span></td>
+<td>\lfloor</td>
+<td></td>
+<td><span class="arithmatex">\(\rfloor\)</span></td>
+<td>\rfloor</td>
+<td></td>
+<td><span class="arithmatex">\(\lceil\)</span></td>
+<td>\lceil</td>
+<td></td>
+<td><span class="arithmatex">\(\rceil\)</span></td>
+<td>\rceil</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\vert\)</span></td>
+<td>\vert</td>
+<td></td>
+<td><span class="arithmatex">\(\Vert\)</span></td>
+<td>\Vert</td>
+<td></td>
+<td><span class="arithmatex">\(/\)</span></td>
+<td>/</td>
+<td></td>
+<td><span class="arithmatex">\(\backslash\)</span></td>
+<td>\backslash</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_11">希臘字母</h2>
+<p><strong>大寫字母</strong> <br />
+|預覽|指令|.|預覽|指令|.|預覽|指令|.|預覽|指令|
+|---|---|---|---|---|---|---|---|---|---|---|
+|<span class="arithmatex">\(\Gamma\)</span>|\Gamma||<span class="arithmatex">\(\Delta\)</span>|\Delta||<span class="arithmatex">\(\Lambda\)</span>|\Lambda||<span class="arithmatex">\(\Xi\)</span>|\Xi|
+|<span class="arithmatex">\(\Pi\)</span>|\Pi||<span class="arithmatex">\(\Sigma\)</span>|\Sigma||<span class="arithmatex">\(\Upsilon\)</span>|\Upsilon||<span class="arithmatex">\(\Phi\)</span>|\Phi|
+|<span class="arithmatex">\(\Psi\)</span>|\Psi||<span class="arithmatex">\(\Omega\)</span>|\Omega|</p>
+<p>&lt;br&gt;</p>
+<p><strong>小寫字母</strong> <br />
+|預覽|指令|.|預覽|指令|.|預覽|指令|.|預覽|指令|
+|---|---|---|---|---|---|---|---|---|---|---|
+|<span class="arithmatex">\(\alpha\)</span>|\alpha||<span class="arithmatex">\(\beta\)</span>|\beta||<span class="arithmatex">\(\gamma\)</span>|\gamma||<span class="arithmatex">\(\delta\)</span>|\delta|
+|<span class="arithmatex">\(\epsilon\)</span>|\epsilon||<span class="arithmatex">\(\varepsilon\)</span>|\varepsilon||<span class="arithmatex">\(\zeta\)</span>|\zeta||<span class="arithmatex">\(\eta\)</span>|\eta|
+|<span class="arithmatex">\(\theta\)</span>|\theta||<span class="arithmatex">\(\vartheta\)</span>|\vartheta||<span class="arithmatex">\(\iota\)</span>|\iota||<span class="arithmatex">\(\kappa\)</span>|\kappa|
+|<span class="arithmatex">\(\lambda\)</span>|\lambda||<span class="arithmatex">\(\mu\)</span>|\mu||<span class="arithmatex">\(\nu\)</span>|\nu||<span class="arithmatex">\(\xi\)</span>|\xi|
+|<span class="arithmatex">\(o\)</span>|o||<span class="arithmatex">\(\pi\)</span>|\pi||<span class="arithmatex">\(\varpi\)</span>|\varpi||<span class="arithmatex">\(\rho\)</span>|\rho|
+|<span class="arithmatex">\(\varrho\)</span>|\varrho||<span class="arithmatex">\(\sigma\)</span>|\sigma||<span class="arithmatex">\(\varsigma\)</span>|\varsigma||<span class="arithmatex">\(\tau\)</span>|\tau|
+|<span class="arithmatex">\(\upsilon\)</span>|\upsilon||<span class="arithmatex">\(\phi\)</span>|\phi||<span class="arithmatex">\(\varphi\)</span>|\varphi||<span class="arithmatex">\(\chi\)</span>|\chi|
+|<span class="arithmatex">\(\psi\)</span>|\psi||<span class="arithmatex">\(\omega\)</span>|\omega|</p>
+<h2 id="_12">陣列與方程式</h2>
+<p><strong>陣列</strong> <br />
+<span class="arithmatex">\(<span class="arithmatex">\(\begin{matrix}
+a+b &amp; c     &amp; 9   \\
+5   &amp; x^2+y &amp; 3   \\
+8   &amp; 7     &amp; z_1 \\
+\end{matrix}\)</span>\)</span></p>
+<p>指令
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>\begin{matrix}
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>a+b &amp;amp; c     &amp;amp; 9   \\
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>5   &amp;amp; x^2+y &amp;amp; 3   \\
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>8   &amp;amp; 7     &amp;amp; z_1 \\
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>\end{matrix}
+</code></pre></div>
+.</p>
+<div class="arithmatex">\[\begin{vmatrix}
+x &amp; y \\
+z &amp; v
+\end{vmatrix}\]</div>
+<p>指令</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>\begin{vmatrix}
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>x &amp;amp; y \\
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>z &amp;amp; v
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>\end{vmatrix}
+</code></pre></div>
+<p>.</p>
+<p><strong>真值表</strong> <br />
+<span class="arithmatex">\(<span class="arithmatex">\(\begin{array}{|c|c||c|} a &amp; b &amp; S \\
+\hline
+0&amp;0&amp;1\\
+0&amp;1&amp;1\\
+1&amp;0&amp;1\\
+1&amp;1&amp;0\\
+\end{array}\)</span>\)</span></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>\begin{array}{|c|c||c|} a &amp;amp; b &amp;amp; S \\
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>\hline
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>0&amp;amp;0&amp;amp;1\\
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>0&amp;amp;1&amp;amp;1\\
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>1&amp;amp;0&amp;amp;1\\
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>1&amp;amp;1&amp;amp;0\\
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>\end{array}
+</code></pre></div>
+<p>.</p>
+<p><strong>方程組</strong> <br />
+<span class="arithmatex">\(<span class="arithmatex">\(\begin{cases}
+3x + 5y +  z \\
+7x - 2y + 4z \\
+-6x + 3y + 2z
+\end{cases}\)</span>\)</span></p>
+<p>指令
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\begin{cases}
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>3x + 5y +  z \\
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>7x - 2y + 4z \\
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>-6x + 3y + 2z
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>\end{cases}
+</code></pre></div></p>
+<h2 id="_13">空格</h2>
+<table>
+<thead>
+<tr>
+<th>效果說明</th>
+<th>指令</th>
+<th>預覽</th>
+<th>.</th>
+<th>效果說明</th>
+<th>指令</th>
+<th>預覽</th>
+<th>.</th>
+<th>效果說明</th>
+<th>指令</th>
+<th>預覽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大空格</td>
+<td>\</td>
+<td><span class="arithmatex">\(a\  b\)</span></td>
+<td></td>
+<td>兩個quad空格</td>
+<td>\qquad</td>
+<td><span class="arithmatex">\(a\qquad b\)</span></td>
+<td></td>
+<td>没有空格</td>
+<td></td>
+<td><span class="arithmatex">\(ab\)</span></td>
+</tr>
+<tr>
+<td>中空格</td>
+<td>\;</td>
+<td><span class="arithmatex">\(a\;b\)</span></td>
+<td></td>
+<td>一個quad空格</td>
+<td>\quad</td>
+<td><span class="arithmatex">\(a\quad b\)</span></td>
+<td></td>
+<td>緊貼</td>
+<td>\!</td>
+<td><span class="arithmatex">\(a\!b\)</span></td>
+</tr>
+<tr>
+<td>小空格</td>
+<td>\,</td>
+<td><span class="arithmatex">\(a\,b\)</span></td>
+<td></td>
+<td>換行</td>
+<td>\\</td>
+<td><span class="arithmatex">\(a\\b\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_14">書寫時, 英文字體顯示</h2>
+<table>
+<thead>
+<tr>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+<th>.</th>
+<th>預覽</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(if\)</span></td>
+<td>if</td>
+<td></td>
+<td><span class="arithmatex">\(\text{ if }\)</span></td>
+<td>\text{ if }</td>
+<td></td>
+<td><span class="arithmatex">\(\mathbb{R}\)</span></td>
+<td>\mathbb{R}</td>
+<td></td>
+<td><span class="arithmatex">\(\mathrm{C}\)</span></td>
+<td>\mathrm{C}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_15">公式對齊</h2>
+<div class="arithmatex">\[
+\begin{aligned}     
+    a &amp;= b + c \\
+       &amp;= d  +f 
+\end{aligned}
+\]</div>
+<p>指令
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>\begin{aligned}     
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    a &amp;amp;= b + c \\
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>       &amp;amp;= d  +f 
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>\end{aligned}
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/james-willett"  target="_blank" rel="noopener">James Willett</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
