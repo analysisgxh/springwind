@@ -22,7 +22,7 @@
     
     
       
-        <title>分布理论 - Sh-yow H-way Gow</title>
+        <title>索伯列夫空间笔记 (一) - 分布理论 - Sh-yow H-way Gow</title>
       
     
     
@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#part-1-" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -105,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              分布理论
+              索伯列夫空间笔记 (一) - 分布理论
             
           </span>
         </div>
@@ -395,6 +400,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    分布理论
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -406,6 +425,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-theory-of-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 分布理论 (Theory of Distributions)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 分布理论 (Theory of Distributions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-history-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 历史与动机 (History &amp; Motivation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-space-of-test-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 测试函数空间 (Space of Test Functions)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 测试函数空间 (Space of Test Functions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bump-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      典型的测试函数 (Bump Function)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mollifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      磨光器 (Mollifiers)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-space-of-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 分布空间 (Space of Distributions)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 常见的分布例子
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 分布的运算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -448,7 +570,85 @@
 
 
 
-  <h1>分布理论</h1>
+<h1 id="part-1-">索伯列夫空间笔记 (Part 1) - 分布理论</h1>
+<blockquote>
+<p>本笔记整理自 <em>Sobolev Spaces and Applications</em> (T. Muthukumar) 第一章。主要介绍了为什么需要分布（广义函数）、测试函数空间的构建以及分布的定义。</p>
+</blockquote>
+<h2 id="1-theory-of-distributions">1. 分布理论 (Theory of Distributions)</h2>
+<h3 id="11-history-motivation">1.1 历史与动机 (History &amp; Motivation)</h3>
+<p>在经典微积分中，很多看似合理的操作（如对不连续函数求导、交换极限与积分顺序）往往受限于严格的定义而无法进行。</p>
+<p><strong>狄拉克 <span class="arithmatex">\(\delta\)</span> 函数 (Dirac Delta Function):</strong>
+物理学家 Paul Dirac 引入了 <span class="arithmatex">\(\delta\)</span> 函数来描述“点质量”或“点电荷”。它满足：
+1. <span class="arithmatex">\(\delta(x) = 0, \quad \forall x \ne 0\)</span>
+2. <span class="arithmatex">\(\int_{-\infty}^{\infty} \delta(x) dx = 1\)</span></p>
+<p>在经典黎曼积分或勒贝格积分框架下，不存在这样的函数（积分为 1 要求函数在测度大于 0 的集合上非零）。Laurent Schwartz 在 1945 年提出了<strong>分布理论</strong>，为这些概念提供了严格的数学基础。</p>
+<h3 id="12-space-of-test-functions">1.2 测试函数空间 (Space of Test Functions)</h3>
+<p>为了定义分布（即“广义函数”），我们需要一个性质非常好的函数空间作为“测试者”。我们称之为测试函数空间 <span class="arithmatex">\(\mathcal{D}(\Omega)\)</span> 或 <span class="arithmatex">\(C_c^\infty(\Omega)\)</span>。</p>
+<p><strong>定义 1.1 (支集 Support):</strong>
+函数 <span class="arithmatex">\(\phi: \Omega \to \mathbb{R}\)</span> 的支集定义为使其非零的点的闭包：
+<span class="arithmatex">\(<span class="arithmatex">\(\text{supp}(\phi) = \overline{\{ x \in \Omega : \phi(x) \ne 0 \}}\)</span>\)</span></p>
+<p><strong>定义 1.2 (测试函数空间 <span class="arithmatex">\(C_c^\infty(\Omega)\)</span>):</strong>
+包含所有定义在开集 <span class="arithmatex">\(\Omega \subseteq \mathbb{R}^n\)</span> 上、具有<strong>紧支集 (Compact Support)</strong> 且<strong>无限可微 (Smooth)</strong> 的函数。
+* 注：<span class="arithmatex">\(C_c^\infty(\Omega)\)</span> 是非空的。</p>
+<h4 id="bump-function">典型的测试函数 (Bump Function)</h4>
+<p>最著名的例子是：
+$$
+\rho(x) = \begin{cases} 
+e^{\frac{1}{|x|^2 - 1}} &amp; \text{if } |x| &lt; 1 \
+0 &amp; \text{if } |x| \ge 1
+\end{cases}
+$$
+这个函数在 <span class="arithmatex">\((-1, 1)\)</span> 内光滑且非零，在外部为 0。</p>
+<h4 id="mollifiers">磨光器 (Mollifiers)</h4>
+<p>利用 <span class="arithmatex">\(\rho(x)\)</span>，我们可以构造<strong>磨光器</strong>来逼近某个不光滑的函数。
+定义 <span class="arithmatex">\(\rho_\epsilon(x) = \frac{1}{\epsilon^n} \rho(\frac{x}{\epsilon})\)</span>。
+对于局部可积函数 <span class="arithmatex">\(f\)</span>，卷积 <span class="arithmatex">\(f_\epsilon = f * \rho_\epsilon\)</span> 是光滑的，且当 <span class="arithmatex">\(\epsilon \to 0\)</span> 时，<span class="arithmatex">\(f_\epsilon \to f\)</span>。</p>
+<h3 id="13-space-of-distributions">1.3 分布空间 (Space of Distributions)</h3>
+<p>分布不仅仅是函数，它是定义在测试函数空间上的<strong>连续线性泛函</strong>。</p>
+<div class="admonition note">
+<p class="admonition-title">定义 1.4: 分布 (Distribution)</p>
+<p>设 <span class="arithmatex">\(\mathcal{D}(\Omega)\)</span> 为测试函数空间。一个<strong>分布</strong> <span class="arithmatex">\(T\)</span> 是一个从 <span class="arithmatex">\(\mathcal{D}(\Omega)\)</span> 到 <span class="arithmatex">\(\mathbb{C}\)</span>（或 <span class="arithmatex">\(\mathbb{R}\)</span>）的映射，满足：</p>
+<ol>
+<li>
+<p><strong>线性性 (Linearity):</strong>
+   <span class="arithmatex">\(<span class="arithmatex">\(T(a\phi + b\psi) = aT(\phi) + bT(\psi), \quad \forall \phi, \psi \in \mathcal{D}(\Omega)\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>连续性 (Continuity):</strong>
+   如果序列 <span class="arithmatex">\(\phi_k \to \phi\)</span> 在 <span class="arithmatex">\(\mathcal{D}(\Omega)\)</span> 中收敛（即一致有界且所有导数一致收敛），则：
+   <span class="arithmatex">\(<span class="arithmatex">\(T(\phi_k) \to T(\phi)\)</span>\)</span></p>
+</li>
+</ol>
+<p>我们将 <span class="arithmatex">\(\Omega\)</span> 上的分布空间记为 <span class="arithmatex">\(\mathcal{D}'(\Omega)\)</span>。通常记 <span class="arithmatex">\(T(\phi)\)</span> 为 <span class="arithmatex">\(\langle T, \phi \rangle\)</span>。</p>
+</div>
+<h3 id="14">1.4 常见的分布例子</h3>
+<p><strong>1. 正则分布 (Regular Distributions):</strong>
+任何局部可积函数 <span class="arithmatex">\(f \in L_{loc}^1(\Omega)\)</span> 都可以看作一个分布 <span class="arithmatex">\(T_f\)</span>：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle T_f, \phi \rangle = \int_{\Omega} f(x)\phi(x) dx\)</span>\)</span>
+这意味着 <span class="arithmatex">\(L_{loc}^1(\Omega) \subset \mathcal{D}'(\Omega)\)</span>。我们可以把函数看作分布的特例。</p>
+<p><strong>2. 狄拉克分布 (Dirac Distribution):</strong>
+对应于物理上的 <span class="arithmatex">\(\delta\)</span> 函数，定义为：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle \delta_a, \phi \rangle = \phi(a)\)</span>\)</span>
+即把测试函数映射为其在点 <span class="arithmatex">\(a\)</span> 处的值。
+* 注意：<span class="arithmatex">\(\delta_a\)</span> 不是由任何普通函数生成的（它不是正则分布）。</p>
+<p><strong>3. 亥维赛阶跃函数 (Heaviside Function) 的导数:</strong>
+设 <span class="arithmatex">\(H(x)\)</span> 为阶跃函数（<span class="arithmatex">\(x&gt;0\)</span> 时为 1，<span class="arithmatex">\(x&lt;0\)</span> 时为 0）。
+在经典微积分中 <span class="arithmatex">\(H\)</span> 不可导。但在分布意义下：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle H', \phi \rangle = - \langle H, \phi' \rangle = - \int_0^\infty \phi'(x) dx = -[\phi(\infty) - \phi(0)] = \phi(0)\)</span>\)</span>
+这说明 <span class="arithmatex">\(H' = \delta_0\)</span>（阶跃函数的导数是狄拉克分布）。</p>
+<hr />
+<h3 id="15">1.5 分布的运算</h3>
+<p>因为分布是函数的推广，我们希望把微积分运算推广到分布上。</p>
+<p><strong>定义 (分布的导数):</strong>
+设 <span class="arithmatex">\(T \in \mathcal{D}'(\Omega)\)</span>，其偏导数 <span class="arithmatex">\(\partial^\alpha T\)</span> 定义为：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle \partial^\alpha T, \phi \rangle = (-1)^{|\alpha|} \langle T, \partial^\alpha \phi \rangle, \quad \forall \phi \in \mathcal{D}(\Omega)\)</span>\)</span></p>
+<ul>
+<li><strong>核心思想:</strong> 通过分部积分法将导数转移到测试函数 <span class="arithmatex">\(\phi\)</span> 上（<span class="arithmatex">\(\phi\)</span> 是光滑的，随便求导）。</li>
+<li><strong>结论:</strong> 任意分布都是<strong>无限可微</strong>的！</li>
+</ul>
+<p><strong>定义 (乘法):</strong>
+两个分布通常不能相乘。但分布 <span class="arithmatex">\(T\)</span> 可以乘以一个光滑函数 <span class="arithmatex">\(g \in C^\infty(\Omega)\)</span>：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle gT, \phi \rangle = \langle T, g\phi \rangle\)</span>\)</span></p>
 
 
 
@@ -456,7 +656,8 @@
 
 
 
-
+  
+  
 
 
 
