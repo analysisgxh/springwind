@@ -525,6 +525,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#title-wkp" class="md-nav__link">
+    <span class="md-ellipsis">
+      title: 索伯列夫空间笔记 (二) - W^{k,p} 空间
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -649,6 +658,196 @@ $$
 <p><strong>定义 (乘法):</strong>
 两个分布通常不能相乘。但分布 <span class="arithmatex">\(T\)</span> 可以乘以一个光滑函数 <span class="arithmatex">\(g \in C^\infty(\Omega)\)</span>：
 <span class="arithmatex">\(<span class="arithmatex">\(\langle gT, \phi \rangle = \langle T, g\phi \rangle\)</span>\)</span></p>
+<hr />
+<h2 id="title-wkp">title: 索伯列夫空间笔记 (二) - W^{k,p} 空间</h2>
+<h1 id="part-2-sobolev-spaces">索伯列夫空间笔记 (Part 2) - Sobolev Spaces</h1>
+<blockquote>
+<p>本笔记整理自 <em>Sobolev Spaces and Applications</em> (Chapter 2, Pages 77-142)。主要涵盖了 Hölder 空间、Sobolev 空间的定义与结构、逼近定理、嵌入定理 (Imbedding Theorems) 以及迹 (Trace) 理论。</p>
+</blockquote>
+<h2 id="21-holder-holder-spaces">2.1 Hölder 空间 (Hölder Spaces)</h2>
+<p>在引入 Sobolev 空间之前，先回顾经典的 Hölder 连续性，这在嵌入定理中非常重要。</p>
+<p><strong>定义 (Hölder 连续):</strong>
+设 <span class="arithmatex">\(\gamma \in (0,1]\)</span>。函数 <span class="arithmatex">\(u: \Omega \to \mathbb{R}\)</span> 称为在 <span class="arithmatex">\(x_0\)</span> 处是 Hölder 连续的（指数为 <span class="arithmatex">\(\gamma\)</span>），如果存在常数 <span class="arithmatex">\(C\)</span> 使得：
+<span class="arithmatex">\(<span class="arithmatex">\(|u(x) - u(x_0)| \le C |x - x_0|^\gamma, \quad \forall x \in \Omega\)</span>\)</span></p>
+<p><strong>定义 (<span class="arithmatex">\(C^{k,\gamma}(\Omega)\)</span> 空间):</strong>
+函数 <span class="arithmatex">\(u \in C^{k,\gamma}(\Omega)\)</span> 当且仅当 <span class="arithmatex">\(u \in C^k(\Omega)\)</span> 且其 <span class="arithmatex">\(k\)</span> 阶导数是指数为 <span class="arithmatex">\(\gamma\)</span> 的一致 Hölder 连续函数。
+* <strong>范数:</strong> <span class="arithmatex">\(||u||_{C^{0,\gamma}} = ||u||_\infty + \sup_{x \ne y} \frac{|u(x) - u(y)|}{|x - y|^\gamma}\)</span>。
+* 当 <span class="arithmatex">\(\gamma = 1\)</span> 时，即为 <strong>Lipschitz 连续</strong>。</p>
+<hr />
+<h2 id="22-sobolev-wkpomega">2.2 Sobolev 空间 <span class="arithmatex">\(W^{k,p}(\Omega)\)</span></h2>
+<h3 id="221">2.2.1 定义与范数</h3>
+<p>设 <span class="arithmatex">\(k\)</span> 为非负整数，<span class="arithmatex">\(1 \le p \le \infty\)</span>。Sobolev 空间定义为：
+<span class="arithmatex">\(<span class="arithmatex">\(W^{k,p}(\Omega) = \{ u \in L^p(\Omega) : D^\alpha u \in L^p(\Omega), \forall |\alpha| \le k \}\)</span>\)</span>
+这里的导数 <span class="arithmatex">\(D^\alpha u\)</span> 是<strong>弱导数 (Distributional Derivative)</strong>。</p>
+<p><strong>范数:</strong>
+<span class="arithmatex">\(<span class="arithmatex">\(||u||_{k,p,\Omega} = \left( \sum_{|\alpha| \le k} ||D^\alpha u||_{L^p}^p \right)^{1/p}\)</span>\)</span>
+对于 <span class="arithmatex">\(p=2\)</span>，通常记为 <span class="arithmatex">\(H^k(\Omega) = W^{k,2}(\Omega)\)</span>，它是一个希尔伯特空间。</p>
+<h3 id="222-theorem-222">2.2.2 完备性与性质 (Theorem 2.2.2)</h3>
+<ol>
+<li><strong>Banach 空间:</strong> <span class="arithmatex">\(W^{k,p}(\Omega)\)</span> 是 Banach 空间。</li>
+<li><strong>反射性 (Reflexivity):</strong> 若 <span class="arithmatex">\(1 &lt; p &lt; \infty\)</span>，则是反射的。</li>
+<li><strong>可分性 (Separability):</strong> 若 <span class="arithmatex">\(1 \le p &lt; \infty\)</span>，则是可分的。</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">反例: 哪些函数不在 <span class="arithmatex">\(W^{1,p}\)</span>?</p>
+<ul>
+<li><strong>跳跃间断点:</strong> 亥维赛阶跃函数 <span class="arithmatex">\(H(x)\)</span> 不在 <span class="arithmatex">\(W^{1,p}(-1,1)\)</span> 中，因为其导数是 Dirac <span class="arithmatex">\(\delta\)</span>，不属于 <span class="arithmatex">\(L^p\)</span>。</li>
+<li><strong>奇异点:</strong> 函数 <span class="arithmatex">\(u(x) = |x|^\beta\)</span> 在单位球 <span class="arithmatex">\(B_1(0)\)</span> 中属于 <span class="arithmatex">\(W^{1,p}\)</span> 当且仅当 <span class="arithmatex">\(\beta &gt; 1 - \frac{n}{p}\)</span>。</li>
+</ul>
+</div>
+<hr />
+<h2 id="23-smooth-approximations">2.3 光滑逼近 (Smooth Approximations)</h2>
+<p>我们希望用光滑函数来逼近 Sobolev 函数。</p>
+<p><strong>1. 全局逼近 (Meyers-Serrin Theorem, Thm 2.3.1):</strong>
+<span class="arithmatex">\(C^\infty(\Omega) \cap W^{k,p}(\Omega)\)</span> 在 <span class="arithmatex">\(W^{k,p}(\Omega)\)</span> 中是稠密的。
+* <em>注:</em> 这里不要求函数在边界附近为 0。</p>
+<p><strong>2. <span class="arithmatex">\(W_0^{k,p}(\Omega)\)</span> 空间:</strong>
+定义 <span class="arithmatex">\(W_0^{k,p}(\Omega)\)</span> 为 <span class="arithmatex">\(C_c^\infty(\Omega)\)</span>（紧支集光滑函数）在 <span class="arithmatex">\(W^{k,p}(\Omega)\)</span> 范数下的闭包。
+* <strong>物理意义:</strong> <span class="arithmatex">\(W_0^{1,p}(\Omega)\)</span> 通常代表在边界 <span class="arithmatex">\(\partial \Omega\)</span> 上值为 0 的函数（Dirichlet 边界条件）。</p>
+<p><strong>3. 边界光滑时的逼近:</strong>
+若 <span class="arithmatex">\(\Omega\)</span> 具有连续边界（Segment Property），则 <span class="arithmatex">\(C_c^\infty(\mathbb{R}^n)\)</span> 的限制也是稠密的。</p>
+<hr />
+<h2 id="25-extension-theorems">2.5 延拓定理 (Extension Theorems)</h2>
+<p>Sobolev 函数定义在区域 <span class="arithmatex">\(\Omega\)</span> 上，能否延拓到整个 <span class="arithmatex">\(\mathbb{R}^n\)</span>？</p>
+<p><strong>定理 (Extension Theorem 2.5.5):</strong>
+若 <span class="arithmatex">\(\Omega\)</span> 是有界且边界 <span class="arithmatex">\(\partial \Omega\)</span> 为 <span class="arithmatex">\(C^1\)</span> 光滑的，则存在一个线性连续算子 <span class="arithmatex">\(E: W^{1,p}(\Omega) \to W^{1,p}(\mathbb{R}^n)\)</span> 使得：
+1. <span class="arithmatex">\(Eu|_{\Omega} = u\)</span>
+2. <span class="arithmatex">\(||Eu||_{W^{1,p}(\mathbb{R}^n)} \le C ||u||_{W^{1,p}(\Omega)}\)</span></p>
+<p>这意味着在该条件下，Sobolev 函数可以看作定义在全空间上的函数。</p>
+<hr />
+<h2 id="28-imbedding-results">2.8 嵌入定理 (Imbedding Results)</h2>
+<p>这是本章最核心的部分。根据 <span class="arithmatex">\(p\)</span> 与维度 <span class="arithmatex">\(n\)</span> 的关系，Sobolev 空间可以嵌入到 <span class="arithmatex">\(L^q\)</span> 空间或 Hölder 空间。</p>
+<h3 id="1-sobolev-1-le-p-n">1. Sobolev 不等式 (<span class="arithmatex">\(1 \le p &lt; n\)</span>)</h3>
+<p>当 <span class="arithmatex">\(p\)</span> 较小时，函数虽然未必连续，但属于更高阶的 <span class="arithmatex">\(L^q\)</span> 空间。</p>
+<p><strong>Sobolev 共轭数 (Sobolev Conjugate):</strong> <span class="arithmatex">\(p^* = \frac{np}{n-p}\)</span>。</p>
+<p><strong>Gagliardo-Nirenberg-Sobolev 不等式 (Thm 2.8.6):</strong>
+对于 <span class="arithmatex">\(u \in W^{1,p}(\mathbb{R}^n)\)</span> (<span class="arithmatex">\(1 \le p &lt; n\)</span>)，有：
+<span class="arithmatex">\(<span class="arithmatex">\(||u||_{L^{p^*}(\mathbb{R}^n)} \le C ||\nabla u||_{L^p(\mathbb{R}^n)}\)</span>\)</span>
+* <strong>结论:</strong> <span class="arithmatex">\(W^{1,p}(\mathbb{R}^n) \hookrightarrow L^{p^*}(\mathbb{R}^n)\)</span> （连续嵌入）。</p>
+<h3 id="2-p-n">2. 临界情形 (<span class="arithmatex">\(p = n\)</span>)</h3>
+<p>当 <span class="arithmatex">\(p=n\)</span> 时，<span class="arithmatex">\(W^{1,n} \hookrightarrow L^q\)</span> 对所有 <span class="arithmatex">\(n \le q &lt; \infty\)</span> 成立，但<strong>不</strong>嵌入到 <span class="arithmatex">\(L^\infty\)</span>。
+* <em>反例:</em> <span class="arithmatex">\(u(x) = \log \log (1/|x|)\)</span> 在 <span class="arithmatex">\(n\)</span> 维球附近。</p>
+<h3 id="3-morrey-p-n">3. Morrey 不等式 (<span class="arithmatex">\(p &gt; n\)</span>)</h3>
+<p>当 <span class="arithmatex">\(p\)</span> 足够大时，Sobolev 函数变得连续。</p>
+<p><strong>Morrey 不等式 (Thm 2.8.16):</strong>
+若 <span class="arithmatex">\(p &gt; n\)</span>，则 <span class="arithmatex">\(W^{1,p}(\mathbb{R}^n) \hookrightarrow C^{0, \gamma}(\mathbb{R}^n)\)</span>，其中 <span class="arithmatex">\(\gamma = 1 - \frac{n}{p}\)</span>。
+即存在常数 <span class="arithmatex">\(C\)</span> 使得：
+<span class="arithmatex">\(<span class="arithmatex">\(|u(x) - u(y)| \le C ||u||_{W^{1,p}} |x-y|^{1 - n/p}\)</span>\)</span></p>
+<h3 id="4-compact-imbedding">4. 紧嵌入 (Compact Imbedding)</h3>
+<p><strong>Rellich-Kondrachov 定理:</strong>
+设 <span class="arithmatex">\(\Omega\)</span> 有界且边界光滑。
+* 若 <span class="arithmatex">\(p &lt; n\)</span>，则 <span class="arithmatex">\(W^{1,p}(\Omega) \hookrightarrow\hookrightarrow L^q(\Omega)\)</span> 对所有 <span class="arithmatex">\(1 \le q &lt; p^*\)</span> 是<strong>紧</strong>嵌入。
+* <em>意义:</em> <span class="arithmatex">\(W^{1,p}\)</span> 中的有界序列在 <span class="arithmatex">\(L^q\)</span> 中有收敛子列。这在求解 PDE 变分问题时用于证明解的存在性。</p>
+<p><strong>Poincaré 不等式:</strong>
+对于 <span class="arithmatex">\(u \in W_0^{1,p}(\Omega)\)</span>（边界为0）：
+<span class="arithmatex">\(<span class="arithmatex">\(||u||_{L^p} \le C ||\nabla u||_{L^p}\)</span>\)</span>
+这说明在 <span class="arithmatex">\(W_0^{1,p}\)</span> 上，<span class="arithmatex">\(||\nabla u||_p\)</span> 是一个等价范数。</p>
+<hr />
+<h2 id="29-trace-theory">2.9 迹定理 (Trace Theory)</h2>
+<p>Sobolev 函数只是 <span class="arithmatex">\(L^p\)</span> 类，定义在测度为 0 的边界 <span class="arithmatex">\(\partial \Omega\)</span> 上本没有意义。但迹定理赋予了其意义。</p>
+<p><strong>迹算子 (Trace Operator):</strong>
+若 <span class="arithmatex">\(\Omega\)</span> 边界光滑，存在唯一的线性连续算子 <span class="arithmatex">\(\gamma: W^{1,p}(\Omega) \to L^p(\partial \Omega)\)</span>，使得对于光滑函数 <span class="arithmatex">\(u \in C^\infty(\bar{\Omega})\)</span>，有 <span class="arithmatex">\(\gamma u = u|_{\partial \Omega}\)</span>。</p>
+<p><strong>迹定理 (Thm 2.9.4):</strong>
+<span class="arithmatex">\(\gamma\)</span> 将 <span class="arithmatex">\(H^1(\Omega)\)</span> 映射到 <span class="arithmatex">\(H^{1/2}(\partial \Omega)\)</span> 是满射。
+* 像空间 <span class="arithmatex">\(W^{1 - 1/p, p}(\partial \Omega)\)</span> 是边界上“损失了 <span class="arithmatex">\(1/p\)</span> 阶导数”的空间。</p>
+<p><strong>零迹特征 (Thm 2.9.9):</strong>
+<span class="arithmatex">\(<span class="arithmatex">\(u \in W_0^{1,p}(\Omega) \iff \gamma u = 0 \text{ on } \partial \Omega\)</span>\)</span>
+这是判定一个函数是否满足 Dirichlet 零边界条件的严格标准。</p>
+<hr />
+<h2 id="title-pde">title: 索伯列夫空间笔记 (三) - 椭圆型 PDE</h2>
+<h1 id="part-3-pde">索伯列夫空间笔记 (Part 3) - 椭圆型 PDE 应用</h1>
+<blockquote>
+<p>本笔记整理自 <em>Sobolev Spaces and Applications</em> (Chapter 4, Pages 147-173)。这一章是理论的应用篇，主要讨论二阶椭圆型方程的弱解存在性、正则性以及不同边界条件下的处理。</p>
+</blockquote>
+<h2 id="41-linear-elliptic-operators">4.1 二阶椭圆型算子 (Linear Elliptic Operators)</h2>
+<h3 id="411">4.1.1 散度形式与非散度形式</h3>
+<p>二阶微分算子 <span class="arithmatex">\(L\)</span> 通常有两种表示形式：</p>
+<ol>
+<li>
+<p><strong>散度形式 (Divergence Form):</strong>
+    <span class="arithmatex">\(<span class="arithmatex">\(Lu := -\text{div}(A(x)\nabla u) + b(x) \cdot \nabla u + c(x)u\)</span>\)</span>
+    或者写成坐标形式：<span class="arithmatex">\(Lu = -\sum_{i,j} \partial_{x_i}(a_{ij}(x)\partial_{x_j}u) + \sum_i b_i(x)\partial_{x_i}u + c(x)u\)</span> 。</p>
+<ul>
+<li><em>优点:</em> 适合定义弱解和使用能量估计。</li>
+</ul>
+</li>
+<li>
+<p><strong>非散度形式 (Non-divergence Form):</strong>
+    <span class="arithmatex">\(<span class="arithmatex">\(Lu := -\sum_{i,j} a_{ij}(x)\partial_{x_i x_j}^2 u + \dots\)</span>\)</span></p>
+<ul>
+<li><em>注:</em> 如果系数 <span class="arithmatex">\(a_{ij}\)</span> 是 <span class="arithmatex">\(C^1\)</span> 光滑的，这两种形式可以互相转化 。</li>
+</ul>
+</li>
+</ol>
+<h3 id="412-ellipticity">4.1.2 椭圆性条件 (Ellipticity)</h3>
+<p>算子 <span class="arithmatex">\(L\)</span> 称为<strong>一致椭圆的 (Uniformly Elliptic)</strong> 或<strong>强制的 (Coercive)</strong>，如果存在常数 <span class="arithmatex">\(\alpha &gt; 0\)</span> 使得对于几乎所有的 <span class="arithmatex">\(x \in \Omega\)</span> 和任意向量 <span class="arithmatex">\(\xi \in \mathbb{R}^n\)</span>：
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i,j=1}^n a_{ij}(x)\xi_i \xi_j \ge \alpha |\xi|^2\)</span>\)</span>
+。</p>
+<hr />
+<h2 id="42-lax-milgram">4.2 弱解与 Lax-Milgram 定理</h2>
+<p>对于经典的 Dirichlet 问题：
+$$
+\begin{cases} 
+Lu = f &amp; \text{in } \Omega \
+u = 0 &amp; \text{on } \partial \Omega
+\end{cases}
+$$</p>
+<h3 id="421">4.2.1 弱解的定义</h3>
+<p>假设 <span class="arithmatex">\(a_{ij}, b_i, c \in L^\infty(\Omega)\)</span>，且 <span class="arithmatex">\(f \in H^{-1}(\Omega)\)</span>。我们称 <span class="arithmatex">\(u \in H_0^1(\Omega)\)</span> 是弱解，如果对于任意测试函数 <span class="arithmatex">\(v \in H_0^1(\Omega)\)</span>，成立：
+<span class="arithmatex">\(<span class="arithmatex">\(\int_{\Omega} A\nabla u \cdot \nabla v \, dx + \int_{\Omega} (b \cdot \nabla u)v \, dx + \int_{\Omega} cuv \, dx = \langle f, v \rangle\)</span>\)</span>
+。</p>
+<h3 id="422">4.2.2 存在唯一性</h3>
+<p>定义双线性形式 <span class="arithmatex">\(a(u,v)\)</span> 为方程左边的积分项。如果满足以下条件：
+1.  <strong>有界性 (Continuity):</strong> <span class="arithmatex">\(|a(u,v)| \le C ||u||_{H^1} ||v||_{H^1}\)</span>
+2.  <strong>强制性 (Coercivity):</strong> <span class="arithmatex">\(a(u,u) \ge \alpha ||u||_{H^1}^2\)</span></p>
+<p>则由 <strong>Lax-Milgram 定理</strong>，存在唯一的弱解 <span class="arithmatex">\(u \in H_0^1(\Omega)\)</span> 。
+* <em>注:</em> 强制性通常要求系数 <span class="arithmatex">\(c(x)\)</span> 足够大或者非负。</p>
+<hr />
+<h2 id="43-regularity">4.3 正则性理论 (Regularity)</h2>
+<p>弱解属于 <span class="arithmatex">\(H^1\)</span>，但如果数据 <span class="arithmatex">\(f\)</span> 和系数更光滑，解是否更光滑？</p>
+<p><strong>定理 (内部正则性 &amp; 边界正则性):</strong>
+若边界 <span class="arithmatex">\(\partial \Omega\)</span> 是 <span class="arithmatex">\(C^2\)</span> 光滑的，且系数 <span class="arithmatex">\(a_{ij} \in C^1(\Omega)\)</span>，则：
+* 若 <span class="arithmatex">\(f \in L^2(\Omega)\)</span>，则弱解 <span class="arithmatex">\(u \in H^2(\Omega)\)</span>。
+* 更一般地，若 <span class="arithmatex">\(f \in H^m(\Omega)\)</span> 且系数足够光滑，则 <span class="arithmatex">\(u \in H^{m+2}(\Omega)\)</span> 。</p>
+<p>这表明椭圆算子的逆算子可以提升解的正则性（"gain of 2 derivatives"）。</p>
+<hr />
+<h2 id="44-neumann-problem">4.4 纽曼问题 (Neumann Problem)</h2>
+<p>考虑边界条件为通量（导数）的方程：
+$$
+\begin{cases} 
+-\text{div}(A\nabla u) + cu = f &amp; \text{in } \Omega \
+\frac{\partial u}{\partial \nu_A} = g &amp; \text{on } \partial \Omega
+\end{cases}
+$$
+其中 <span class="arithmatex">\(\frac{\partial u}{\partial \nu_A} = (A\nabla u) \cdot \nu\)</span> 是关于矩阵 <span class="arithmatex">\(A\)</span> 的法向导数 。</p>
+<h3 id="441">4.4.1 自然边界条件</h3>
+<p>与 Dirichlet 条件（强行要在函数空间 <span class="arithmatex">\(H_0^1\)</span> 中体现）不同，Neumann 条件不需要在寻找解的空间 <span class="arithmatex">\(H^1(\Omega)\)</span> 中预先设定。
+* 它被称为<strong>自然边界条件 (Natural Boundary Condition)</strong>，因为它自然地出现在变分公式的边界项中 。
+* 当我们在 <span class="arithmatex">\(H^1(\Omega)\)</span> 上极小化能量泛函时，Neumann 条件会自动满足。</p>
+<h3 id="442-semi-coercive">4.4.2 半强制问题 (Semi-coercive)</h3>
+<p>当 <span class="arithmatex">\(c \equiv 0\)</span> 时（即方程中没有 <span class="arithmatex">\(u\)</span> 项），算子不再是强制的（<span class="arithmatex">\(a(u,u)\)</span> 只能控制梯度，不能控制 <span class="arithmatex">\(L^2\)</span> 范数，由 Poincaré 不等式可知常数函数是核）。
+* 此时问题通常仅在相差一个常数的意义下有解，且需要满足相容性条件（Compatibility Condition）：
+    <span class="arithmatex">\(<span class="arithmatex">\(\int_{\Omega} f dx + \int_{\partial \Omega} g d\sigma = 0\)</span>\)</span>
+    。</p>
+<hr />
+<h2 id="45-stokes-problem">4.5 斯托克斯问题 (Stokes Problem)</h2>
+<p>这是流体力学中的经典方程，描述粘性不可压缩流体。
+$$
+\begin{cases} 
+-\mu \Delta u + \nabla p = f &amp; \text{in } \Omega \
+\text{div}(u) = 0 &amp; \text{in } \Omega \
+u = 0 &amp; \text{on } \partial \Omega
+\end{cases}
+$$
+* <strong>未知量:</strong> 速度场 <span class="arithmatex">\(u = (u_1, \dots, u_n)\)</span> 和压力 <span class="arithmatex">\(p\)</span>。
+* <strong>不可压缩条件:</strong> <span class="arithmatex">\(\text{div}(u) = 0\)</span> 作为一个约束条件出现 。</p>
+<p>在弱解形式中，我们通常在一个无散度的函数空间中寻找 <span class="arithmatex">\(u\)</span>，从而消去压力项 <span class="arithmatex">\(p\)</span>。压力 <span class="arithmatex">\(p\)</span> 随后作为 Lagrange 乘子被恢复出来。</p>
+<hr />
+<h2 id="46">4.6 变分法与极小化</h2>
+<p>许多椭圆型方程的解可以看作是能量泛函的极小值点。
+例如，对于对称的算子 <span class="arithmatex">\(A\)</span>，弱解 <span class="arithmatex">\(u\)</span> 极小化以下泛函：
+<span class="arithmatex">\(<span class="arithmatex">\(J(v) := \frac{1}{2} \int_{\Omega} A\nabla v \cdot \nabla v \, dx - \int_{\Omega} fv \, dx\)</span>\)</span>
+在 <span class="arithmatex">\(H_0^1(\Omega)\)</span> 中寻找极小值等价于求解 Dirichlet 问题 。</p>
 
 
 
