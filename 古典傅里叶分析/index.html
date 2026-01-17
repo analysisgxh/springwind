@@ -714,26 +714,26 @@
 </blockquote>
 <h2 id="1-review-on-analysis">1. 分析学回顾 (Review on Analysis)</h2>
 <h3 id="11">1.1 逐点收敛与一致收敛</h3>
-<p>[cite_start]在讨论函数项级数之前，我们需要区分两种收敛概念 [cite: 3, 7, 8]。</p>
+<p>在讨论函数项级数之前，我们需要区分两种收敛概念 。</p>
 <div class="admonition note">
 <p class="admonition-title">定义 1.1: 逐点收敛 (Pointwise Convergence)</p>
 <p>设 <span class="arithmatex">\(I \subseteq \mathbb{R}\)</span> 为一个区间，函数序列 <span class="arithmatex">\(\{f_k\}_{k=1}^{\infty}\)</span> 称为在 <span class="arithmatex">\(I\)</span> 上<strong>逐点收敛</strong>至 <span class="arithmatex">\(f\)</span>，若对于任意 <span class="arithmatex">\(x \in I\)</span>，数列 <span class="arithmatex">\(\{f_k(x)\}\)</span> 都收敛至 <span class="arithmatex">\(f(x)\)</span>。即：
 <span class="arithmatex">\(<span class="arithmatex">\(\lim_{k \to \infty} |f_k(x) - f(x)| = 0, \quad \forall x \in I\)</span>\)</span>
-[cite_start]记作 <span class="arithmatex">\(f_k \to f \text{ p.w.}\)</span> [cite: 4, 5, 7]。</p>
+记作 <span class="arithmatex">\(f_k \to f \text{ p.w.}\)</span> 。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">定义: 一致收敛 (Uniform Convergence)</p>
 <p>函数序列 <span class="arithmatex">\(\{f_k\}_{k=1}^{\infty}\)</span> 称为在 <span class="arithmatex">\(I\)</span> 上<strong>一致收敛</strong>至 <span class="arithmatex">\(f\)</span>，若：
 <span class="arithmatex">\(<span class="arithmatex">\(\lim_{k \to \infty} \sup_{x \in I} |f_k(x) - f(x)| = 0\)</span>\)</span>
-[cite_start]即对于任意 <span class="arithmatex">\(\epsilon &gt; 0\)</span>，存在 <span class="arithmatex">\(N &gt; 0\)</span>，使得对于所有 <span class="arithmatex">\(k \ge N\)</span> 和 <span class="arithmatex">\(x \in I\)</span> [cite: 8, 10, 11]：
+即对于任意 <span class="arithmatex">\(\epsilon &gt; 0\)</span>，存在 <span class="arithmatex">\(N &gt; 0\)</span>，使得对于所有 <span class="arithmatex">\(k \ge N\)</span> 和 <span class="arithmatex">\(x \in I\)</span> ：
 <span class="arithmatex">\(<span class="arithmatex">\(|f_k(x) - f(x)| &lt; \epsilon\)</span>\)</span></p>
 </div>
 <p><strong>性质与定理：</strong></p>
 <ul>
-<li>[cite_start]<strong>连续性的保持 (Theorem 1.4):</strong> 若 <span class="arithmatex">\(\{f_k\}\)</span> 为连续函数序列且一致收敛至 <span class="arithmatex">\(f\)</span>，则 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(I\)</span> 上连续。这意味着极限运算与函数求值可以交换顺序 [cite: 20, 21]。</li>
-<li>[cite_start]<strong>可积性的保持 (Theorem 1.6):</strong> 若 <span class="arithmatex">\(\{f_k\}\)</span> 为黎曼可积函数序列且一致收敛至 <span class="arithmatex">\(f\)</span>，则 <span class="arithmatex">\(f\)</span> 可积，且积分与极限可以交换 [cite: 28, 30]：
+<li><strong>连续性的保持 (Theorem 1.4):</strong> 若 <span class="arithmatex">\(\{f_k\}\)</span> 为连续函数序列且一致收敛至 <span class="arithmatex">\(f\)</span>，则 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(I\)</span> 上连续。这意味着极限运算与函数求值可以交换顺序 。</li>
+<li><strong>可积性的保持 (Theorem 1.6):</strong> 若 <span class="arithmatex">\(\{f_k\}\)</span> 为黎曼可积函数序列且一致收敛至 <span class="arithmatex">\(f\)</span>，则 <span class="arithmatex">\(f\)</span> 可积，且积分与极限可以交换 ：
     <span class="arithmatex">\(<span class="arithmatex">\(\lim_{k \to \infty} \int_{a}^{b}f_{k}(x)dx = \int_{a}^{b}f(x)dx\)</span>\)</span></li>
-<li>[cite_start]<strong>空间完备性 (Theorem 1.8):</strong> 定义范数 <span class="arithmatex">\(||f||_{\infty} = \sup_{x \in I}|f(x)|\)</span>。空间 <span class="arithmatex">\((\mathscr{C}_b(I;\mathbb{R}), ||\cdot||_{\infty})\)</span> 是完备的赋范空间（Banach 空间）[cite: 34, 37]。</li>
+<li><strong>空间完备性 (Theorem 1.8):</strong> 定义范数 <span class="arithmatex">\(||f||_{\infty} = \sup_{x \in I}|f(x)|\)</span>。空间 <span class="arithmatex">\((\mathscr{C}_b(I;\mathbb{R}), ||\cdot||_{\infty})\)</span> 是完备的赋范空间（Banach 空间）。</li>
 </ul>
 <h3 id="12-weierstrass-m-">1.2 Weierstrass M-判别法</h3>
 <p>这是判断函数项级数一致收敛最常用的工具。</p>
@@ -742,58 +742,58 @@
 <p>设 <span class="arithmatex">\(g_k: I \to \mathbb{R}\)</span> 为函数序列。若存在常数数列 <span class="arithmatex">\(\{M_k\}\)</span> 满足：
 1. <span class="arithmatex">\(\sup_{x \in I} |g_k(x)| \le M_k\)</span>
 2. <span class="arithmatex">\(\sum_{k=1}^{\infty} M_k\)</span> 收敛</p>
-<p>[cite_start]则级数 <span class="arithmatex">\(\sum_{k=1}^{\infty} g_k\)</span> 在 <span class="arithmatex">\(I\)</span> 上<strong>一致收敛</strong> [cite: 53, 54, 55]。</p>
+<p>则级数 <span class="arithmatex">\(\sum_{k=1}^{\infty} g_k\)</span> 在 <span class="arithmatex">\(I\)</span> 上<strong>一致收敛</strong> 。</p>
 </div>
 <h3 id="13-stone-weierstrass">1.3 解析函数与 Stone-Weierstrass 定理</h3>
 <ul>
-<li>[cite_start]<strong>泰勒展开 (Theorem 1.16):</strong> 若 <span class="arithmatex">\(f\)</span> 无限可微且导数受控，则 <span class="arithmatex">\(f\)</span> 可以展开为幂级数，且收敛是一致的 [cite: 71, 73]。</li>
-<li>[cite_start]<strong>Weierstrass 逼近定理 (Theorem 1.18):</strong> 对于任意闭区间上的连续函数 <span class="arithmatex">\(f \in \mathscr{C}([0,1];\mathbb{R})\)</span>，存在多项式序列 <span class="arithmatex">\(\{p_n\}\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span>。证明中通常构造 <strong>Bernstein 多项式</strong> [cite: 92, 102]：
+<li><strong>泰勒展开 (Theorem 1.16):</strong> 若 <span class="arithmatex">\(f\)</span> 无限可微且导数受控，则 <span class="arithmatex">\(f\)</span> 可以展开为幂级数，且收敛是一致的 。</li>
+<li><strong>Weierstrass 逼近定理 (Theorem 1.18):</strong> 对于任意闭区间上的连续函数 <span class="arithmatex">\(f \in \mathscr{C}([0,1];\mathbb{R})\)</span>，存在多项式序列 <span class="arithmatex">\(\{p_n\}\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span>。证明中通常构造 <strong>Bernstein 多项式</strong> ：
     <span class="arithmatex">\(<span class="arithmatex">\(p_n(x) = \sum_{k=0}^{\infty} f\left(\frac{k}{n}\right) C_n^k x^k (1-x)^{n-k}\)</span>\)</span></li>
 </ul>
 <h3 id="14">1.4 三角多项式与单位逼近</h3>
-<p>[cite_start]我们将关注点转到 <span class="arithmatex">\(2\pi\)</span>-周期连续函数空间 <span class="arithmatex">\(\mathscr{C}(\mathbb{T})\)</span> [cite: 116]。</p>
+<p>我们将关注点转到 <span class="arithmatex">\(2\pi\)</span>-周期连续函数空间 <span class="arithmatex">\(\mathscr{C}(\mathbb{T})\)</span> 。</p>
 <div class="admonition note">
 <p class="admonition-title">定义 1.21: 单位逼近 (Approximation of the Identity)</p>
-<p>[cite_start]一族函数 <span class="arithmatex">\(\{\varphi_n\}\)</span> 称为单位逼近，若满足 [cite: 123]：</p>
+<p>一族函数 <span class="arithmatex">\(\{\varphi_n\}\)</span> 称为单位逼近，若满足 ：</p>
 <ol>
-<li>[cite_start]<strong>非负性:</strong> <span class="arithmatex">\(\varphi_n(x) \ge 0\)</span> [cite: 124]。</li>
-<li>[cite_start]<strong>归一化:</strong> <span class="arithmatex">\(\int_{\mathbb{T}} \varphi_n(x) dx = 1\)</span> [cite: 126]。</li>
-<li><strong>集中性:</strong> 对于任意 <span class="arithmatex">\(\delta &gt; 0\)</span>，<span class="arithmatex">\(\lim_{n \to \infty} \int_{\delta \le |x| [cite_start]\le \pi} \varphi_n(x) dx = 0\)</span> [cite: 127]。</li>
+<li><strong>非负性:</strong> <span class="arithmatex">\(\varphi_n(x) \ge 0\)</span> 。</li>
+<li><strong>归一化:</strong> <span class="arithmatex">\(\int_{\mathbb{T}} \varphi_n(x) dx = 1\)</span> 。</li>
+<li><strong>集中性:</strong> 对于任意 <span class="arithmatex">\(\delta &gt; 0\)</span>，<span class="arithmatex">\(\lim_{n \to \infty} \int_{\delta \le |x| \le \pi} \varphi_n(x) dx = 0\)</span> 。</li>
 </ol>
 </div>
 <p><strong>卷积 (Convolution):</strong>
-[cite_start]两个函数 <span class="arithmatex">\(f, g\)</span> 的卷积定义为 [cite: 128, 129]：
+两个函数 <span class="arithmatex">\(f, g\)</span> 的卷积定义为 ：
 <span class="arithmatex">\(<span class="arithmatex">\((f * g)(x) = \int_{\mathbb{T}} f(x-y)g(y) dy\)</span>\)</span></p>
 <div class="admonition abstract">
 <p class="admonition-title">定理 1.23</p>
-<p>[cite_start]若 <span class="arithmatex">\(\{\varphi_n\}\)</span> 是单位逼近且 <span class="arithmatex">\(f \in \mathscr{C}(\mathbb{T})\)</span>，则卷积序列 <span class="arithmatex">\(\varphi_n * f\)</span> 在 <span class="arithmatex">\(\mathbb{T}\)</span> 上<strong>一致收敛</strong>至 <span class="arithmatex">\(f\)</span> [cite: 130]。</p>
+<p>若 <span class="arithmatex">\(\{\varphi_n\}\)</span> 是单位逼近且 <span class="arithmatex">\(f \in \mathscr{C}(\mathbb{T})\)</span>，则卷积序列 <span class="arithmatex">\(\varphi_n * f\)</span> 在 <span class="arithmatex">\(\mathbb{T}\)</span> 上<strong>一致收敛</strong>至 <span class="arithmatex">\(f\)</span> 。</p>
 </div>
-<p>[cite_start]<strong>定理 1.25:</strong> 三角多项式集合 <span class="arithmatex">\(\mathscr{P}(\mathbb{T})\)</span> 在 <span class="arithmatex">\(\mathscr{C}(\mathbb{T})\)</span> 中是稠密的 [cite: 153]。</p>
+<p><strong>定理 1.25:</strong> 三角多项式集合 <span class="arithmatex">\(\mathscr{P}(\mathbb{T})\)</span> 在 <span class="arithmatex">\(\mathscr{C}(\mathbb{T})\)</span> 中是稠密的 。</p>
 <hr />
 <h2 id="2-fourier-series">2. 傅里叶级数 (Fourier Series)</h2>
 <h3 id="21">2.1 基本性质</h3>
-<p>[cite_start]对于黎曼可积函数 <span class="arithmatex">\(f: [-\pi, \pi] \to \mathbb{R}\)</span>，其傅里叶级数定义为 [cite: 194, 195]：</p>
+<p>对于黎曼可积函数 <span class="arithmatex">\(f: [-\pi, \pi] \to \mathbb{R}\)</span>，其傅里叶级数定义为 ：</p>
 <div class="arithmatex">\[s(f,x) \sim \frac{c_0}{2} + \sum_{k=1}^{\infty} (c_k \cos kx + s_k \sin kx)\]</div>
-<p>[cite_start]其中<strong>傅里叶系数</strong>为 [cite: 191]：
+<p>其中<strong>傅里叶系数</strong>为 ：
 <span class="arithmatex">\(<span class="arithmatex">\(c_k = \frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos kx dx, \quad s_k = \frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin kx dx\)</span>\)</span></p>
-<p>[cite_start]也可以使用复数形式表示 [cite: 206, 207]：
+<p>也可以使用复数形式表示 ：
 <span class="arithmatex">\(<span class="arithmatex">\(s_n(f,x) = \sum_{k=-n}^{n} \hat{f}_k e^{ikx}, \quad \text{其中 } \hat{f}_k = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(y)e^{-iky}dy\)</span>\)</span></p>
 <h3 id="22">2.2 傅里叶级数的一致收敛性</h3>
-<p>[cite_start]傅里叶级数的部分和 <span class="arithmatex">\(s_n(f,x)\)</span> 可以写成卷积形式 [cite: 246]：
+<p>傅里叶级数的部分和 <span class="arithmatex">\(s_n(f,x)\)</span> 可以写成卷积形式 ：
 <span class="arithmatex">\(<span class="arithmatex">\(s_n(f,x) = (D_n * f)(x)\)</span>\)</span>
-[cite_start]其中 <span class="arithmatex">\(D_n\)</span> 为 <strong>Dirichlet 核 (Dirichlet Kernel)</strong> [cite: 249, 251]：
+其中 <span class="arithmatex">\(D_n\)</span> 为 <strong>Dirichlet 核 (Dirichlet Kernel)</strong> ：
 <span class="arithmatex">\(<span class="arithmatex">\(D_n(x) = \frac{\sin((n+\frac{1}{2})x)}{2\pi \sin \frac{x}{2}}\)</span>\)</span></p>
 <h4 id="_1">收敛性定理</h4>
 <p><strong>1. <span class="arithmatex">\(C^1\)</span> 函数的收敛性 (Theorem 2.8)</strong>
-[cite_start]若 <span class="arithmatex">\(f \in \mathscr{C}^1(\mathbb{T})\)</span>（即 <span class="arithmatex">\(f\)</span> 连续可微），则 <span class="arithmatex">\(s_n(f, \cdot)\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span> [cite: 259]。</p>
+若 <span class="arithmatex">\(f \in \mathscr{C}^1(\mathbb{T})\)</span>（即 <span class="arithmatex">\(f\)</span> 连续可微），则 <span class="arithmatex">\(s_n(f, \cdot)\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span> 。</p>
 <p><strong>2. 勒贝格常数与对数增长 (Theorem 2.12)</strong>
-[cite_start]Dirichlet 核的 <span class="arithmatex">\(L^1\)</span> 范数增长速度为 <span class="arithmatex">\(\log n\)</span>。对于连续函数 <span class="arithmatex">\(f\)</span>，有如下误差估计 [cite: 315, 338, 340]：
+Dirichlet 核的 <span class="arithmatex">\(L^1\)</span> 范数增长速度为 <span class="arithmatex">\(\log n\)</span>。对于连续函数 <span class="arithmatex">\(f\)</span>，有如下误差估计 ：
 <span class="arithmatex">\(<span class="arithmatex">\(||f - s_n(f)||_{\infty} \le (3 + \log n) \inf_{p \in \mathscr{P}_n} ||f - p||_{\infty}\)</span>\)</span></p>
 <p><strong>3. Jackson 定理 (Theorem 2.14)</strong>
-[cite_start]逼近误差与函数的连续性模量有关。存在常数 <span class="arithmatex">\(C\)</span>，使得 [cite: 364, 365]：
+逼近误差与函数的连续性模量有关。存在常数 <span class="arithmatex">\(C\)</span>，使得 ：
 <span class="arithmatex">\(<span class="arithmatex">\(\inf_{p \in \mathscr{P}_n} ||f - p||_{\infty} \le C \sup_{|x-y| \le 1/n} |f(x) - f(y)|\)</span>\)</span></p>
 <p><strong>4. Hölder 连续函数的收敛 (Theorem 2.15)</strong>
-[cite_start]若 <span class="arithmatex">\(f \in \mathscr{C}^{0,\alpha}(\mathbb{T})\)</span>（即 Hölder 连续，指数 <span class="arithmatex">\(\alpha \in (0,1]\)</span>），则 <span class="arithmatex">\(s_n(f, \cdot)\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span> [cite: 300, 394]。</p>
+若 <span class="arithmatex">\(f \in \mathscr{C}^{0,\alpha}(\mathbb{T})\)</span>（即 Hölder 连续，指数 <span class="arithmatex">\(\alpha \in (0,1]\)</span>），则 <span class="arithmatex">\(s_n(f, \cdot)\)</span> 一致收敛至 <span class="arithmatex">\(f\)</span> 。</p>
 <div class="admonition tip">
 <p class="admonition-title">注</p>
 <p>这说明仅仅“连续”并不能保证傅里叶级数一致收敛，需要更强的光滑性条件（如 Hölder 连续）。</p>
@@ -804,26 +804,25 @@
 <h3 id="fejer">Fejér 核</h3>
 <p>定义傅里叶部分和的算术平均值 <span class="arithmatex">\(\sigma_n(f, x)\)</span> 为：
 <span class="arithmatex">\(<span class="arithmatex">\(\sigma_n(f,x) = \frac{1}{n+1}\sum_{k=0}^{n}s_k(f,x)\)</span>\)</span></p>
-<p>[cite_start]这可以写成卷积形式 <span class="arithmatex">\(\sigma_n(f,x) = (F_n * f)(x)\)</span>，其中 <span class="arithmatex">\(F_n\)</span> 是 <strong>Fejér 核 (Fejér Kernel)</strong> [cite: 411, 416]：
+<p>这可以写成卷积形式 <span class="arithmatex">\(\sigma_n(f,x) = (F_n * f)(x)\)</span>，其中 <span class="arithmatex">\(F_n\)</span> 是 <strong>Fejér 核 (Fejér Kernel)</strong> ：
 <span class="arithmatex">\(<span class="arithmatex">\(F_n(x) = \frac{1}{n+1}\sum_{k=0}^{n}D_k(x) = \frac{1}{2\pi(n+1)} \frac{\sin^2(\frac{(n+1)x}{2})}{\sin^2 \frac{x}{2}}\)</span>\)</span></p>
 <div class="admonition abstract">
 <p class="admonition-title">Fejér 核的性质</p>
 <ol>
-<li>[cite_start]<strong>非负性:</strong> <span class="arithmatex">\(F_n(x) \ge 0\)</span> （这比 Dirichlet 核好得多，Dirichlet 核有正有负）。[cite: 418]</li>
-<li>[cite_start]<strong>单位逼近:</strong> <span class="arithmatex">\(\{F_n\}\)</span> 构成了单位逼近 (Approximation of the Identity)。[cite: 422]</li>
+<li><strong>非负性:</strong> <span class="arithmatex">\(F_n(x) \ge 0\)</span> （这比 Dirichlet 核好得多，Dirichlet 核有正有负）。</li>
+<li><strong>单位逼近:</strong> <span class="arithmatex">\(\{F_n\}\)</span> 构成了单位逼近 (Approximation of the Identity)。</li>
 </ol>
 </div>
 <div class="admonition success">
 <p class="admonition-title">定理 2.18 (Fejér 定理)</p>
-<p>[cite_start]对于任意连续函数 <span class="arithmatex">\(f \in \mathscr{C}(\mathbb{T})\)</span>，其傅里叶级数的 Cesàro 均值 <span class="arithmatex">\(\sigma_n(f, \cdot)\)</span> 在 <span class="arithmatex">\(\mathbb{T}\)</span> 上<strong>一致收敛</strong>至 <span class="arithmatex">\(f\)</span>。[cite: 423]</p>
+<p>对于任意连续函数 <span class="arithmatex">\(f \in \mathscr{C}(\mathbb{T})\)</span>，其傅里叶级数的 Cesàro 均值 <span class="arithmatex">\(\sigma_n(f, \cdot)\)</span> 在 <span class="arithmatex">\(\mathbb{T}\)</span> 上<strong>一致收敛</strong>至 <span class="arithmatex">\(f\)</span>。</p>
 </div>
 <hr />
 <h2 id="24-gibbs">2.4 间断点与 Gibbs 现象</h2>
 <p>当函数不连续时（例如方波），傅里叶级数的行为会变得非常有趣。</p>
 <h3 id="_2">逐点收敛性</h3>
 <p>对于只有跳跃间断点的分段 Hölder 连续函数，傅里叶级数在间断点 <span class="arithmatex">\(x_0\)</span> 处收敛到左右极限的平均值：
-<span class="arithmatex">\(<span class="arithmatex">\(\lim_{n \to \infty} s_n(f, x_0) = \frac{f(x_0^+) + f(x_0^-)}{2}\)</span>\)</span>
-[cite_start][cite: 505]</p>
+<span class="arithmatex">\(<span class="arithmatex">\(\lim_{n \to \infty} s_n(f, x_0) = \frac{f(x_0^+) + f(x_0^-)}{2}\)</span>\)</span></p>
 <h3 id="gibbs-gibbs-phenomenon">Gibbs 现象 (Gibbs Phenomenon)</h3>
 <p>在跳跃间断点附近，傅里叶级数的部分和会出现“过冲” (overshoot) 现象，且不会随 <span class="arithmatex">\(n\)</span> 增大而消失。</p>
 <div class="admonition warning">
@@ -831,31 +830,29 @@
 <p>设 <span class="arithmatex">\(x_0\)</span> 为跳跃间断点，跳跃量为 <span class="arithmatex">\(a = f(x_0^+) - f(x_0^-) \ne 0\)</span>。则部分和与函数值的最大偏差约为跳跃量的 <strong>9%</strong>。</p>
 <p>具体常数为：
 <span class="arithmatex">\(<span class="arithmatex">\(c = \frac{1}{\pi} \int_0^{\pi} \frac{\sin x}{x} dx - \frac{1}{2} \approx 0.089490\)</span>\)</span>
-[cite_start]这意味着在间断点附近的区间上，傅里叶级数<strong>不</strong>一致收敛。[cite: 501, 543]</p>
+这意味着在间断点附近的区间上，傅里叶级数<strong>不</strong>一致收敛。</p>
 </div>
 <hr />
 <h2 id="25-l2-viewpoint">2.5 内积空间视角 (<span class="arithmatex">\(L^2\)</span> Viewpoint)</h2>
 <p>将函数看作向量，傅里叶级数可以看作是在正交基下的展开。</p>
 <h3 id="l2"><span class="arithmatex">\(L^2\)</span> 空间与内积</h3>
 <p>定义空间 <span class="arithmatex">\(L^2(\mathbb{T}) = \{ f : \int_{-\pi}^{\pi} |f(x)|^2 dx &lt; \infty \}\)</span>。在此空间上定义内积：
-<span class="arithmatex">\(<span class="arithmatex">\(\langle f, g \rangle = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) \overline{g(x)} dx\)</span>\)</span>
-[cite_start][cite: 556, 561]</p>
-<p>[cite_start]集合 <span class="arithmatex">\(\{e_k(x) = e^{ikx}\}_{k=-\infty}^{\infty}\)</span> 是 <span class="arithmatex">\(L^2(\mathbb{T})\)</span> 上的一个<strong>标准正交基 (Orthonormal Basis)</strong>。[cite: 569]</p>
+<span class="arithmatex">\(<span class="arithmatex">\(\langle f, g \rangle = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) \overline{g(x)} dx\)</span>\)</span></p>
+<p>集合 <span class="arithmatex">\(\{e_k(x) = e^{ikx}\}_{k=-\infty}^{\infty}\)</span> 是 <span class="arithmatex">\(L^2(\mathbb{T})\)</span> 上的一个<strong>标准正交基 (Orthonormal Basis)</strong>。</p>
 <h3 id="_3">关键等式</h3>
 <ul>
 <li>
-<p>[cite_start]<strong>投影性质:</strong> 部分和 <span class="arithmatex">\(s_n(f)\)</span> 是 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(n\)</span> 次三角多项式空间 <span class="arithmatex">\(\mathscr{P}_n(\mathbb{T})\)</span> 上的正交投影，它是该空间中与 <span class="arithmatex">\(f\)</span> 的 <span class="arithmatex">\(L^2\)</span> 距离最近的元素。[cite: 577, 595]</p>
+<p><strong>投影性质:</strong> 部分和 <span class="arithmatex">\(s_n(f)\)</span> 是 <span class="arithmatex">\(f\)</span> 在 <span class="arithmatex">\(n\)</span> 次三角多项式空间 <span class="arithmatex">\(\mathscr{P}_n(\mathbb{T})\)</span> 上的正交投影，它是该空间中与 <span class="arithmatex">\(f\)</span> 的 <span class="arithmatex">\(L^2\)</span> 距离最近的元素。</p>
 </li>
 <li>
 <p><strong>Bessel 不等式:</strong>
-    <span class="arithmatex">\(<span class="arithmatex">\(\sum_{k=-\infty}^{\infty} |\hat{f}_k|^2 \le ||f||_{L^2}^2\)</span>\)</span>
-    [cite_start][cite: 600]</p>
+    <span class="arithmatex">\(<span class="arithmatex">\(\sum_{k=-\infty}^{\infty} |\hat{f}_k|^2 \le ||f||_{L^2}^2\)</span>\)</span></p>
 </li>
 <li>
 <p><strong>Parseval 等式 (能量守恒):</strong>
     对于 <span class="arithmatex">\(f \in L^2(\mathbb{T})\)</span>，有：
     <span class="arithmatex">\(<span class="arithmatex">\(\int_{-\pi}^{\pi} |f(x)|^2 dx = 2\pi \sum_{k=-\infty}^{\infty} |\hat{f}_k|^2\)</span>\)</span>
-    [cite_start]这意味着时域（空间域）的能量等于频域的能量。[cite: 644]</p>
+    这意味着时域（空间域）的能量等于频域的能量。</p>
 </li>
 </ul>
 <hr />
@@ -863,34 +860,31 @@
 <p>在计算机处理中，我们无法处理连续信号，只能处理离散采样点。</p>
 <h3 id="dft">DFT 定义</h3>
 <p>对于长度为 <span class="arithmatex">\(N\)</span> 的复数序列 <span class="arithmatex">\(\{x_0, x_1, ..., x_{N-1}\}\)</span>，其 <strong>DFT</strong> 序列 <span class="arithmatex">\(\{X_k\}\)</span> 定义为：
-<span class="arithmatex">\(<span class="arithmatex">\(X_k = \sum_{l=0}^{N-1} x_l e^{\frac{-2\pi i k l}{N}}\)</span>\)</span>
-[cite_start][cite: 676]</p>
+<span class="arithmatex">\(<span class="arithmatex">\(X_k = \sum_{l=0}^{N-1} x_l e^{\frac{-2\pi i k l}{N}}\)</span>\)</span></p>
 <h3 id="fft">快速傅里叶变换 (FFT)</h3>
 <p>直接计算 DFT 需要 <span class="arithmatex">\(N^2\)</span> 次乘法。当 <span class="arithmatex">\(N=2^\gamma\)</span> 时，可以使用分治策略（将序列分为奇数项和偶数项）来加速计算。</p>
 <ul>
 <li><strong>原理:</strong> 利用 <span class="arithmatex">\(W_N^{2k} = W_{N/2}^k\)</span> 的性质，将大问题分解为小问题。</li>
-<li>[cite_start]<strong>复杂度:</strong> 乘法次数从 <span class="arithmatex">\(N^2\)</span> 降低到 <span class="arithmatex">\(\frac{N}{2} \log_2 N\)</span>。[cite: 730]</li>
+<li><strong>复杂度:</strong> 乘法次数从 <span class="arithmatex">\(N^2\)</span> 降低到 <span class="arithmatex">\(\frac{N}{2} \log_2 N\)</span>。</li>
 </ul>
 <hr />
 <h1 id="3-fourier-transforms">3. 傅里叶变换 (Fourier Transforms)</h1>
 <p>当周期 <span class="arithmatex">\(L \to \infty\)</span> 时，傅里叶级数演变为傅里叶变换，用于处理非周期函数。</p>
 <h2 id="31">3.1 定义</h2>
 <p>对于 <span class="arithmatex">\(f \in L^1(\mathbb{R}^n)\)</span>，其傅里叶变换 <span class="arithmatex">\(\hat{f}\)</span> 定义为：
-<span class="arithmatex">\(<span class="arithmatex">\(\hat{f}(\xi) = \frac{1}{\sqrt{2\pi}^n} \int_{\mathbb{R}^n} f(x) e^{-ix \cdot \xi} dx\)</span>\)</span>
-[cite_start][cite: 816]</p>
+<span class="arithmatex">\(<span class="arithmatex">\(\hat{f}(\xi) = \frac{1}{\sqrt{2\pi}^n} \int_{\mathbb{R}^n} f(x) e^{-ix \cdot \xi} dx\)</span>\)</span></p>
 <h2 id="32-schwartz-mathscrsmathbbrn">3.2 Schwartz 空间 <span class="arithmatex">\(\mathscr{S}(\mathbb{R}^n)\)</span></h2>
 <p>为了建立完美的对称理论，引入速降函数空间。</p>
 <div class="admonition note">
 <p class="admonition-title">定义 3.6: Schwartz 空间</p>
 <p><span class="arithmatex">\(\mathscr{S}(\mathbb{R}^n)\)</span> 包含所有光滑函数，且其自身及任意阶导数在无穷远处的衰减速度快于任意多项式的倒数。
-[cite_start]原型函数是高斯函数 <span class="arithmatex">\(e^{-|x|^2}\)</span>。[cite: 843, 847]</p>
+原型函数是高斯函数 <span class="arithmatex">\(e^{-|x|^2}\)</span>。</p>
 </div>
 <p><strong>性质:</strong>
-[cite_start]傅里叶变换是 Schwartz 空间上的双射算子，即 <span class="arithmatex">\(\mathscr{F}: \mathscr{S} \to \mathscr{S}\)</span>。[cite: 899]</p>
+傅里叶变换是 Schwartz 空间上的双射算子，即 <span class="arithmatex">\(\mathscr{F}: \mathscr{S} \to \mathscr{S}\)</span>。</p>
 <h2 id="33-inversion-formula">3.3 傅里叶反转公式 (Inversion Formula)</h2>
 <p>若 <span class="arithmatex">\(f \in \mathscr{S}(\mathbb{R}^n)\)</span>，则可以完美还原：
-<span class="arithmatex">\(<span class="arithmatex">\(f(x) = \frac{1}{\sqrt{2\pi}^n} \int_{\mathbb{R}^n} \hat{f}(\xi) e^{ix \cdot \xi} d\xi\)</span>\)</span>
-[cite_start][cite: 989]</p>
+<span class="arithmatex">\(<span class="arithmatex">\(f(x) = \frac{1}{\sqrt{2\pi}^n} \int_{\mathbb{R}^n} \hat{f}(\xi) e^{ix \cdot \xi} d\xi\)</span>\)</span></p>
 
 
 
