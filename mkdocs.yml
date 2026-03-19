@@ -1,5 +1,20 @@
-site_name:  Smile
-site_url:
+site_name: Sh-yow H-way Gow
+site_url: https://your-username.github.io/your-repo-name/  # 建议填上你的真实 GitHub Pages 网址
+# 这里的名字可以随意写，冒号后面对应你的 markdown 文件路径
+nav:
+  - 首页: index.md
+  - 古典傅里叶分析: 古典傅里叶分析.md   
+  - 现代傅里叶分析: 现代傅里叶分析.md
+  - 分布理论: 分布理论.md
+  - 函数分析: 函数分析.md
+  - 高性能计算: 高性能计算MPI.md
+  # - 个人简介: about.md
+  # - 学习笔记:
+  #     - 数学分析: math/analysis.md
+  #     - 线性代数: math/algebra.md
+  # - 英语备考:
+  #     - 托福总结: english/toefl.md
+  #     - 单词列表: english/vocab.md
 theme:
   name: material
   features:
@@ -27,16 +42,14 @@ theme:
       primary: teal
       accent: lime
 
-  plugins:
+plugins:
   # - social
-    - mkdocs-pdf
+  # 注意：如果你没安装 mkdocs-pdf-export-plugin 插件，下面这行会报错，没装就注释掉
+  # - mkdocs-pdf  
 
+# 修正了 extra 的格式，去掉了错误的短横线
 extra:
- 
-  -mdx_math:
-        enable_dollar_delimiter: True
-  
-  -social:
+  social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/james-willett
     - icon: fontawesome/brands/twitter
@@ -45,13 +58,12 @@ extra:
       link: https://www.linkedin.com/in/willettjames/
 
 markdown_extensions:
-  - pymdownx.arithmatex:
-      generic: true
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - admonition
+  # 数学公式配置移动到这里，并删除了重复项
   - pymdownx.arithmatex:
       generic: true
   - footnotes
@@ -59,32 +71,20 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.mark
   - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.pathconverter:
-      base_path:  # default: ''
-      relative_path: '' # default ''
-      absolute: true # default: false
+      base_path: ''
+      relative_path: ''
+      absolute: true
       tags: 'a script img link object embed'
 
+# 修正了 CSS 拼写错误，删除了冲突的 KaTeX CSS
+extra_css:
+  - stylesheets/extra.css  # 如果你有自定义 CSS 放在这里
+
+# 修正了 JS 配置，只保留 MathJax，删除了 polyfill 和 KaTeX
 extra_javascript: 
-  
-    - javascripts/mathjax.js
-    - https://polyfill.io/v3/polyfill.min.js?features=es6
-    - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-    - javascripts/katex.js
-    - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
-    - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
-
-
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 copyright: |
-  &copy; 2023 <a href="https://github.com/james-willett"  target="_blank" rel="noopener">James Willett</a>
-
-
-
-
-extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  &copy; 2026 <a href="" target="_blank" rel="noopener">gxh</a>
