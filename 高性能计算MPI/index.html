@@ -14,6 +14,8 @@
         <link rel="prev" href="../%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90/">
       
       
+        <link rel="next" href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/">
+      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
@@ -304,6 +306,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/" class="md-tabs__link">
+        
+  
+    
+  
+  竹林语录
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -507,10 +526,109 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置第三方库
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置第三方库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-code-ms-mpi-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      VS Code 配置 MS-MPI (C/C++) 环境笔记
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 配置代码提示（解决红波浪线）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 配置编译任务（核心步骤）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-gcc-gmingw" class="md-nav__link">
+    <span class="md-ellipsis">
+      方案 A：使用 GCC 编译器 (g++/MinGW)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置文件说明实例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    竹林语录
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -546,17 +664,153 @@
 <li><a href="https://www.open-mpi.org/doc/">MPI函数详情</a></li>
 <li><a href="https://www.mpi-forum.org/docs/">相关pdf</a></li>
 <li>《并行计算导论》张林波等，《并行算法实践》陈国良等。</li>
-<li>ddss </li>
-<li>d s</li>
-<li>d s</li>
-<li>ds </li>
-<li>d s</li>
-<li>ds ds ds</li>
-<li>dsds </li>
-<li></li>
+<li><strong>常用MPI库</strong>：intel MPI,MS MPI,OpenMPI,MPICH等。</li>
+<li>安装intel oneAPI全家桶，简单。</li>
+<li>单独安装intel MPI,运行可能遇到通信问题。</li>
+<li>使用MS MPI:</li>
+<li>安装两个文件:mpi库和执行程序mpiexec</li>
+<li>下载地址: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=105289">MS MPI下载地址</a></li>
+<li>目录结构:<br />
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">H:.</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">├─Include</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  mpi.f90</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  mpi.h</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  mpif.h</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  mpio.h</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  mspms.h</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │  pmidbg.h</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  ├─x64</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │      mpifptr.h</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  └─x86</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          mpifptr.h</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">├─Lib</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  ├─x64</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │      msmpi.lib</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │      msmpifec.lib</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │      msmpifmc.lib</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  │</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│  └─x86</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          msmpi.lib</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          msmpifec.lib</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          msmpifes.lib</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          msmpifmc.lib</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│          msmpifms.lib</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">│</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">└─License</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">                </span><span class="l l-Scalar l-Scalar-Plain">MicrosoftMPI-SDK-EULA.rtf</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">                </span><span class="l l-Scalar l-Scalar-Plain">MPI-SDK-TPN.txt</span>
+</code></pre></div></li>
 </ul>
+<h2 id="_1">配置第三方库</h2>
+<ul>
+<li>设置.h文件或.mod文件所在目录，见上面的Include文件</li>
+<li>设置.lib文件所在目录，见上面的Lib文件夹</li>
+<li>填入需要的lib文件名</li>
+</ul>
+<h3 id="vs-code-ms-mpi-cc">VS Code 配置 MS-MPI (C/C++) 环境笔记</h3>
 </li>
 </ul>
+<p>在 VS Code 中配置 MPI 环境，本质上是将 Visual Studio 图形界面里的核心操作（包含目录、库目录、依赖项）通过 <strong>JSON 配置文件</strong> 或 <strong>编译参数</strong> 来实现。</p>
+<hr />
+<h3 id="1">1. 配置代码提示（解决红波浪线）</h3>
+<p><strong>对应 VS 操作：</strong> 设置 <code>.h</code> 文件目录 (Additional Include Directories)</p>
+<ul>
+<li><strong>文件：</strong> <code>.vscode/c_cpp_properties.json</code> (或通过 UI 界面设置)</li>
+<li><strong>操作：</strong></li>
+<li>按 <code>Ctrl + Shift + P</code>，输入并选择 <code>C/C++: Edit Configurations (UI)</code>。</li>
+<li>找到 <strong>包含路径 (Include path)</strong>，添加你的 MPI include 路径。</li>
+<li><strong>路径示例：</strong> <code>H:/Include</code>（如果是 Intel MPI 则类似 <code>C:/.../mpi/latest/include</code>）。</li>
+<li><strong>效果：</strong> 告诉 IntelliSense 头文件在哪里，<code>#include &lt;mpi.h&gt;</code> 不再报错。</li>
+</ul>
+<hr />
+<h3 id="2">2. 配置编译任务（核心步骤）</h3>
+<p><strong>对应 VS 操作：</strong>  设置 <code>.lib</code> 目录 (Additional Library Directories)
+* 填入所需的 <code>lib</code> 文件名 (Additional Dependencies)</p>
+<ul>
+<li><strong>文件：</strong> <code>.vscode/tasks.json</code></li>
+<li><strong>操作：</strong> 在 <code>args</code> 数组中添加对应的编译和链接参数。</li>
+</ul>
+<h3 id="a-gcc-gmingw">方案 A：使用 GCC 编译器 (g++/MinGW)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="s2">&quot;${file}&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="s2">&quot;-o&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;${fileDirname}\\${fileBasenameNoExtension}.exe&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="s2">&quot;-I&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;H:/Include&quot;</span><span class="p">,</span><span class="w">                     </span><span class="c1">// 1. 指定头文件目录</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="s2">&quot;-L&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;H:/Lib/x64&quot;</span><span class="p">,</span><span class="w">                     </span><span class="c1">// 2. 指定库文件目录</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="s2">&quot;-lmsmpi&quot;</span><span class="w">                               </span><span class="c1">// 3. 链接具体的库 (注意去掉 .lib 后缀)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="_2">配置文件说明实例</h3>
+<ul>
+<li>c_cpp_properties.json
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Win32-MPI&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="nt">&quot;includePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                </span><span class="s2">&quot;${workspaceFolder}/**&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">                </span><span class="s2">&quot;H:/MPI/Include&quot;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="p">],</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">            </span><span class="nt">&quot;defines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">                </span><span class="s2">&quot;_DEBUG&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">                </span><span class="s2">&quot;UNICODE&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">                </span><span class="s2">&quot;_UNICODE&quot;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">            </span><span class="p">],</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">            </span><span class="nt">&quot;compilerPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H:/MPI/mingw/winlibs-x86_64-posix-seh-gcc-15.2.0-mingw-w64ucrt-13.0.0-r6/mingw64/bin/g++.exe&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">            </span><span class="nt">&quot;cStandard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c17&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">            </span><span class="nt">&quot;cppStandard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gnu++14&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">            </span><span class="nt">&quot;intelliSenseMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;windows-gcc-x64&quot;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">}</span>
+</code></pre></div></li>
+<li>tasks.json
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">           </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">         </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">             </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">                 </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cppbuild&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">                 </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C/C++: g++.exe 编译 MPI 程序&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">                 </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;H:/MPI/mingw/winlibs-x86_64-posix-seh-gcc-15.2.0-mingw-w64ucrt-13.0.0-r6/mingw64/bin/g++.exe&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">                 </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">                     </span><span class="s2">&quot;-fdiagnostics-color=always&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">                     </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">                     </span><span class="s2">&quot;${file}&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">                     </span><span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">                     </span><span class="s2">&quot;${fileDirname}\\${fileBasenameNoExtension}.exe&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">                     </span><span class="s2">&quot;-I&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">                     </span><span class="s2">&quot;H:/MPI/Include&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">                     </span><span class="s2">&quot;-L&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">                     </span><span class="s2">&quot;H:/MPI/Lib/x64&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                     </span><span class="s2">&quot;-lmsmpi&quot;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">                 </span><span class="p">],</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">                 </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                     </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${fileDirname}&quot;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">                 </span><span class="p">},</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">                 </span><span class="nt">&quot;problemMatcher&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">                     </span><span class="s2">&quot;$gcc&quot;</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">                 </span><span class="p">],</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">                 </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">                     </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;build&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">                     </span><span class="nt">&quot;isDefault&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">                 </span><span class="p">},</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">                 </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;使用 MinGW g++ 并链接 MS-MPI 库&quot;</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">             </span><span class="p">}</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">         </span><span class="p">],</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">         </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">     </span><span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="note">Note</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 注意替换为你的实际编译器路径，这里以 g++ 为例</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>g++<span class="w"> </span>hello_mpi.cpp<span class="w"> </span>-o<span class="w"> </span>hello_mpi.exe<span class="w"> </span>-I<span class="s2">&quot;H:\Include&quot;</span><span class="w"> </span>-L<span class="s2">&quot;H:\Lib\x64&quot;</span><span class="w"> </span>-lmsmpi
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>.<span class="se">\h</span>ello_mpi.exe
+</code></pre></div>
+<h3 id="_3">思考</h3>
+<p>我觉得还是在Linux环境下配置环境比较好，windows配置环境总是出现意向不到的错误。不习惯。clangd(llvm)+clang+cmake+lldb这种配置环境我还是比较喜欢的。</p>
 
 
 
