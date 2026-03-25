@@ -1121,10 +1121,9 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 <li><strong>内在物理规律：</strong> 这个从 <span class="arithmatex">\(a(x) \to u(x)\)</span> 的演化，本质上受一系列极其复杂的<strong>随机微分方程（SDE，因为包含量子涨落的随机性）</strong>和扩散方程支配。</li>
 </ul>
 <hr />
-<h3 id="fno">三、 核心利器：傅里叶神经算子（FNO）的降维打击</h3>
+<h3 id="fno">三、傅里叶神经算子（FNO）</h3>
 <p>为什么用 FNO（Fourier Neural Operator）而不是普通的 CNN（卷积神经网络）？
 普通的 CNN 是在离散的像素网格上做局部卷积，一旦量能器的通道分辨率变了，CNN 就得重新训练；而且 CNN 很难捕捉全局的物理守恒律。</p>
-<p><strong>FNO 的做法（您可以直接在 PPT 或面试中展示这个数学过程）：</strong></p>
 <p>FNO 认为，既然物理场在空间域里变化极其剧烈且复杂，那我们就把它变换到频域（Frequency Domain）去解决！</p>
 <ol>
 <li><strong>傅里叶变换 (<span class="arithmatex">\(\mathcal{F}\)</span>)：</strong> 将输入的物理场 <span class="arithmatex">\(a(x)\)</span> 通过快速傅里叶变换（FFT）映射到频域。</li>
@@ -1132,7 +1131,7 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 <li><strong>频域线性乘法：</strong> 在频域中，极其复杂的微分算子（求导数）变成了一个简单的复数矩阵乘法！用一个可学习的复数权重张量 <span class="arithmatex">\(R\)</span> 乘以频域信号。</li>
 <li><strong>逆傅里叶变换 (<span class="arithmatex">\(\mathcal{F}^{-1}\)</span>)：</strong> 将乘完的结果再变换回三维物理空间。</li>
 </ol>
-<p><strong>FNO 的数学表达极为优雅：</strong>
+<p><strong>FNO 的数学表达优雅：</strong>
 $$
 \mathcal{K}(a) = \mathcal{F}^{-1}(R \cdot \mathcal{F}(a))
 $$</p>
