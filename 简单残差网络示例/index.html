@@ -574,18 +574,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    简单残差网络示例
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -596,82 +584,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      二、 网络连接与代码对照图
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="二、 网络连接与代码对照图">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      神经网络的“激活”机制：什么时候发生？怎么发生？
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="神经网络的“激活”机制：什么时候发生？怎么发生？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      第一步：线性组合（还没激活，先做加权汇总）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      第二步：非线性激活（什么时候激活？就是现在！）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      总结：代码与公式的完美映射
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -817,6 +729,8 @@
 <img alt="alt text" src="../Figure_1.png" /></p>
 <p>本文档记录了使用多层感知机（MLP）拟合三维曲面 <span class="arithmatex">\(Z = \sin(\pi X) \cdot \sin(\pi Y)\)</span> 的代码</p>
 <hr />
+<div align="right">
+
 <pre class="mermaid"><code>graph TD
     subgraph 数据输入
         IN["输入张量 x&lt;br&gt;形状: [Batch_Size, 2]&lt;br&gt;(X, Y 坐标)"]
@@ -846,117 +760,8 @@
     classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
     classDef act fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
     class ACT1,ACT2 act;</code></pre>
-<!-- ## 一、 原代码核心陷阱诊断
 
-原代码在内存管理、计算效率和可视化方面存在几个致命问题，会导致程序崩溃或死机：
-
-1.  **内存陷阱 (`list(zip(...))`):**
-    设定 2000x2000 = **4,000,000** 个样本点时，`list(zip())` 会将所有元组瞬间加载到内存中，消耗海量内存并极大概率导致 Python 崩溃。
-2.  **渲染地狱 (`plot_surface` 点太多):**
-    Matplotlib 在 CPU 上尝试绘制 400 万个顶点的 3D 曲面会直接卡死。对于展示深度学习拟合效果，**100x100 (1万个点)** 的网格已经足够平滑和精确。
-3.  **单次 Batch Size 太大与优化器选择:**
-    将 400 万个数据点作为 Full-batch 进行梯度下降，参数更新频率极低。配合 SGD 优化器，拟合非线性曲面极慢。改用 `Adam` 优化器会大幅提升收敛速度。 -->
-
-<hr />
-<h2 id="_1">二、 网络连接与代码对照图</h2>
-<p>以下是通过 Mermaid 绘制的神经网络结构图，展示了数据在 <code>Net</code> 类中的流向以及对应的 PyTorch 代码逻辑：</p>
-<pre class="mermaid"><code>graph TD
-    subgraph 数据输入
-        IN["输入张量 x&lt;br&gt;形状: [Batch_Size, 2]&lt;br&gt;(X, Y 坐标)"]
-    end
-
-    subgraph 神经网络 Net
-        FC1["第一层: self.fc1&lt;br&gt;代码: nn.Linear(2, 64)"]
-        ACT1(("激活: torch.tanh()"))
-
-        FC2["第二层: self.fc2&lt;br&gt;代码: nn.Linear(64, 64)"]
-        ACT2(("激活: torch.tanh()"))
-
-        FC3["输出层: self.fc3&lt;br&gt;代码: nn.Linear(64, 1)"]
-    end
-
-    subgraph 预测输出
-        OUT["输出张量 out&lt;br&gt;形状: [Batch_Size, 1]&lt;br&gt;(预测高度 Z)"]
-    end
-
-    IN --&gt;|o = self.fc1(x)| FC1
-    FC1 --&gt;|o = torch.tanh(o)| ACT1
-    ACT1 --&gt;|o = self.fc2(o)| FC2
-    FC2 --&gt;|o = torch.tanh(o)| ACT2
-    ACT2 --&gt;|out = self.fc3(o)| FC3
-    FC3 --&gt;|return out| OUT
-
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef act fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    class ACT1,ACT2 act;</code></pre>
-<pre class="mermaid"><code>graph TD
-    subgraph 数据输入
-        IN["输入张量 x&lt;br&gt;形状: [Batch_Size, 2]&lt;br&gt;(X, Y 坐标)"]
-    end
-
-    subgraph 神经网络 Net
-        FC1["第一层: self.fc1&lt;br&gt;代码: nn.Linear(2, 64)"]
-        ACT1(("激活: torch.tanh()"))
-
-        FC2["第二层: self.fc2&lt;br&gt;代码: nn.Linear(64, 64)"]
-        ACT2(("激活: torch.tanh()"))
-
-        FC3["输出层: self.fc3&lt;br&gt;代码: nn.Linear(64, 1)"]
-    end
-
-    subgraph 预测输出
-        OUT["输出张量 out&lt;br&gt;形状: [Batch_Size, 1]&lt;br&gt;(预测高度 Z)"]
-    end
-
-    IN --&gt;|o = self.fc1(x)| FC1
-    FC1 --&gt;|o = torch.tanh(o)| ACT1
-    ACT1 --&gt;|o = self.fc2(o)| FC2
-    FC2 --&gt;|o = torch.tanh(o)| ACT2
-    ACT2 --&gt;|out = self.fc3(o)| FC3
-    FC3 --&gt;|return out| OUT
-
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef act fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    class ACT1,ACT2 act;</code></pre>
-<h3 id="_2">神经网络的“激活”机制：什么时候发生？怎么发生？</h3>
-<p>要理解激活机制，我们必须明确一个核心概念：在神经网络中，<strong>每一个隐藏层的数据处理，永远分为严格的“两步走”</strong>。</p>
-<p>激活函数永远发生在<strong>第一步（线性映射）完成之后，第二步（传递给下一层）开始之前</strong>。</p>
-<hr />
-<h4 id="_3">第一步：线性组合（还没激活，先做加权汇总）</h4>
-<p>当你的输入数据 <span class="arithmatex">\(X\)</span>（比如你代码里形状为 <code>[10000, 2]</code> 的坐标点）进入第一层网络 <code>self.fc1 = nn.Linear(2, 64)</code> 时，网络首先进行的是纯粹的矩阵仿射变换。</p>
-<ul>
-<li><strong>数学公式</strong>：
-  <span class="arithmatex">\(<span class="arithmatex">\(Z = X \cdot W^T + b\)</span>\)</span></li>
-<li><strong>公式解释</strong>：</li>
-<li><span class="arithmatex">\(X\)</span> 是输入变量。</li>
-<li><span class="arithmatex">\(W\)</span> 是这 64 个神经元的权重矩阵（Weight）。</li>
-<li><span class="arithmatex">\(b\)</span> 是偏置向量（Bias）。</li>
-<li><span class="arithmatex">\(Z\)</span> 是线性计算的输出结果。此时的 <span class="arithmatex">\(Z\)</span> 包含了 64 个实数，记作 <span class="arithmatex">\([z_1, z_2, ..., z_{64}]\)</span>。</li>
-</ul>
-<p><strong>此时的状态</strong>：这 64 个数字 <span class="arithmatex">\(z_i\)</span> 的取值范围是 <span class="arithmatex">\((-\infty, +\infty)\)</span>。它们只是一堆不受控制的线性叠加结果，<strong>这时候还没有发生激活</strong>。</p>
-<hr />
-<h4 id="_4">第二步：非线性激活（什么时候激活？就是现在！）</h4>
-<p>拿到这 64 个不受限制的数字 <span class="arithmatex">\(z_i\)</span> 后，网络立刻对它们进行“逐元素（Element-wise）”的激活操作。这就是 <code>torch.tanh(...)</code> 真正发挥作用的瞬间。</p>
-<p>我们以其中某一个神经元的输出 <span class="arithmatex">\(z_1\)</span> 为例，看看 <strong>Tanh（双曲正切）</strong> 是怎么激活它的。</p>
-<ul>
-<li>
-<p><strong>数学公式（Tanh 的真面目）</strong>：
-  <span class="arithmatex">\(<span class="arithmatex">\(a_1 = \text{tanh}(z_1) = \frac{e^{z_1} - e^{-z_1}}{e^{z_1} + e^{-z_1}}\)</span>\)</span></p>
-</li>
-<li>
-<p><strong>怎么激活的？（核心物理意义）</strong>：
-  激活的过程，就是一个<strong>“非线性挤压与映射”</strong>的过程。</p>
-</li>
-<li><strong>如果 <span class="arithmatex">\(z_1\)</span> 非常大</strong>（比如算出来是 <span class="arithmatex">\(100\)</span>）：<span class="arithmatex">\(e^{-100}\)</span> 趋近于 <span class="arithmatex">\(0\)</span>，公式变成 <span class="arithmatex">\(\frac{e^{100}}{e^{100}} = 1\)</span>。神经元处于<strong>“完全兴奋”</strong>状态（输出 <span class="arithmatex">\(+1\)</span>）。</li>
-<li><strong>如果 <span class="arithmatex">\(z_1\)</span> 非常小</strong>（比如算出来是 <span class="arithmatex">\(-100\)</span>）：<span class="arithmatex">\(e^{100}\)</span> 趋近于 <span class="arithmatex">\(0\)</span>，公式变成 <span class="arithmatex">\(\frac{-e^{100}}{e^{100}} = -1\)</span>。神经元处于<strong>“完全抑制”</strong>状态（输出 <span class="arithmatex">\(-1\)</span>）。</li>
-<li><strong>如果 <span class="arithmatex">\(z_1\)</span> 在 <span class="arithmatex">\(0\)</span> 附近</strong>：激活函数表现得像一个平滑的线性过渡，保留了数据的细微差异。</li>
-</ul>
-<p>经过这一步，原本在 <span class="arithmatex">\((-\infty, +\infty)\)</span> 狂飙的 64 个数字，瞬间被<strong>全部驯服（激活）</strong>到了 <span class="arithmatex">\([-1, 1]\)</span> 的区间内，变成了全新的 64 个数字 <span class="arithmatex">\([a_1, a_2, ..., a_{64}]\)</span>。</p>
-<hr />
-<h4 id="_5">总结：代码与公式的完美映射</h4>
-<p>现在，我们再回头看你的那句 PyTorch 代码：</p>
-<div class="highlight"><pre><span></span><code><span class="n">o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</code></pre></div>
+</div>
 
 
 
