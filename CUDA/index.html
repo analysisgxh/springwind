@@ -1123,8 +1123,8 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 <hr />
 <h3 id="fno">三、傅里叶神经算子（FNO）</h3>
 <p>为什么用 FNO（Fourier Neural Operator）而不是普通的 CNN（卷积神经网络）？
-普通的 CNN 是在离散的像素网格上做局部卷积，一旦量能器的通道分辨率变了，CNN 就得重新训练；而且 CNN 很难捕捉全局的物理守恒律。</p>
-<p>FNO 认为，既然物理场在空间域里变化极其剧烈且复杂，那我们就把它变换到频域（Frequency Domain）去解决！</p>
+普通的 CNN 是在离散的像素网格上做局部卷积，一旦量能器的通道分辨率变了，CNN 就得重新训练；而且 CNN 很难捕捉全局的物理守恒律。
+FNO 认为，既然物理场在空间域里变化极其剧烈且复杂，那我们就把它变换到频域（Frequency Domain）去解决！</p>
 <ol>
 <li><strong>傅里叶变换 (<span class="arithmatex">\(\mathcal{F}\)</span>)：</strong> 将输入的物理场 <span class="arithmatex">\(a(x)\)</span> 通过快速傅里叶变换（FFT）映射到频域。</li>
 <li><strong>截断高频，保留低频（物理直觉）：</strong> 物理系统的宏观演化（如能量扩散）主要由低频分量决定。我们在频域中只保留前 <span class="arithmatex">\(k\)</span> 个低频模式。</li>
