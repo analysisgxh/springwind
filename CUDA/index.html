@@ -880,28 +880,7 @@
 </div>
 </div>
 
-<pre class="mermaid"><code>graph TD
-    A[开始编写代码] --&gt; B{编译通过了吗?}
-    B -- 是 --&gt; C[运行测试]
-    B -- 否 --&gt; D[查看报错信息]
-    D --&gt; A
-    C --&gt; E((结束))</code></pre>
-<h1 id="gpu">📊 GPU 计算执行全局与局部流程图</h1>
-<p>以下流程图（Flowchart）严格按照硬件执行顺序，展示了从 CPU 主机端发起任务，到 GPU 内部流多处理器（SM）执行 SIMT 指令，再到数据写回的完整生命周期。</p>
-<hr />
-<h2 id="_1">📋 流程图节点说明</h2>
-<ol>
-<li><strong>主机端 (蓝色区域)</strong>：代表 CPU 及系统内存。它是计算任务的发起者和最终结果的接收者。</li>
-<li><strong>设备端全局 (外层绿色区域)</strong>：包含大容量的橙色 DRAM（全局显存）和负责统筹全局任务调度的模块。</li>
-<li><strong>SM 内部 (内层橙色区域)</strong>：精确映射了我们之前绘制的硬件架构。<ul>
-<li><strong>黄色 Control</strong> 承担了步骤 3 和 4（上下文切换与指令广播）。</li>
-<li><strong>紫色 L1 Cache</strong> 承担了步骤 5（高速数据吞吐）。</li>
-<li><strong>绿色 Cores</strong> 承担了步骤 6（纯粹的算力输出）。</li>
-</ul>
-</li>
-</ol>
-<p>通过虚线（数据流）与实线（控制/指令流）的区分，可以清晰看出：<strong>指令由上至下单向广播，而数据在存储层级之间双向流动。</strong></p>
-<h1 id="gpu_1">⚙️ GPU 硬件架构与核心工作流程深度解析</h1>
+<h1 id="gpu">⚙️ GPU 硬件架构与核心工作流程解析</h1>
 <p>在理解了 GPU 的物理微架构（即 <code>Control</code> + <code>L1 Cache</code> + <code>Cores</code> 强绑定组成的流多处理器 SM）后，我们将严谨地剖析其从宏观到微观的计算执行流程。</p>
 <hr />
 <h2 id="host-vs-device">🌐 一、 宏观层级：主机与设备 (Host vs. Device) 交互流程</h2>
@@ -928,7 +907,7 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 接受指令后，<strong>Cores 阵列</strong> 并发访问紧邻的 <strong>L1 Cache 块（紫色）</strong>。每个核心根据自身的 Warp-level 索引获取连续的、不同的数据切片（合并访存 Coalesced Memory Access），并在同一个时钟周期内，整齐划一地完成各自的浮点或整数算术运算。</p>
 </div>
 <hr />
-<h2 id="_2">🎯 三、 架构图解映射：数据流与指令流总结</h2>
+<h2 id="_1">🎯 三、 架构图解映射：数据流与指令流总结</h2>
 <p>回顾修正后的架构图，SM 内部的组件强绑定关系决定了指令与数据的物理流向：</p>
 <div class="admonition success">
 <p class="admonition-title">硬件绑定的底层逻辑</p>
@@ -938,6 +917,64 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 <li>🟢 <strong>计算执行 (绿色阵列)</strong>：剥离了复杂的逻辑控制与庞大的缓存后，仅保留纯粹的算术逻辑单元 (ALU) 和浮点运算单元 (FPU)，以极高的空间利用率实现了算力密度的最大化。</li>
 </ul>
 </div>
+<h1 id="gpu_1">📊 GPU 计算执行全局与局部流程图</h1>
+<p>以下流程图（Flowchart）严格按照硬件执行顺序，展示了从 CPU 主机端发起任务，到 GPU 内部流多处理器（SM）执行 SIMT 指令，再到数据写回的完整生命周期。</p>
+<pre class="mermaid"><code>graph TD
+    %% 定义样式
+    classDef host fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#000;
+    classDef device fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000;
+    classDef sm fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000;
+    classDef control fill:#f7c05c,stroke:#e65100,color:#000;
+    classDef cache fill:#694489,stroke:#4a148c,color:#fff;
+    classDef core fill:#7bb167,stroke:#1b5e20,color:#fff;
+    classDef memory fill:#dd8247,stroke:#bf360c,color:#fff;
+
+    subgraph Host_Side [主机端 Host / CPU]
+        H1[1. 内存分配与数据初始化]:::host
+        H2[2. 发起 Kernel 调用指令&lt;br&gt;定义 Grid 与 Block 维度]:::host
+        H3[8. 接收 GPU 计算结果]:::host
+    end
+
+    subgraph Device_Side [设备端 Device / GPU]
+        D1[(全局存储器 DRAM)]:::memory
+        D2[全局指令调度器&lt;br&gt;Global Scheduler]:::device
+
+        subgraph SM_Architecture [流多处理器 SM 内部微架构]
+            S1[3. Control: 线程束调度&lt;br&gt;Warp Scheduling]:::control
+            S2[4. Control: 指令提取与派发&lt;br&gt;Instruction Fetch &amp; Dispatch]:::control
+            S3[(5. L1 Cache / 共享内存&lt;br&gt;数据高速缓存)]:::cache
+            S4[6. Cores: ALU 计算阵列&lt;br&gt;同步执行算术逻辑运算]:::core
+        end
+
+        %% 宏观数据流与指令流
+        H1 -- "H2D 数据传输 (via PCIe)" --&gt; D1
+        H2 -- "提交 Kernel 元数据" --&gt; D2
+        D2 -- "分配 Thread Block" --&gt; S1
+
+        %% SM 内部微观流
+        S1 --&gt; S2
+        S2 -- "SIMT 广播同一指令" --&gt; S4
+        D1 -. "并行数据加载" .-&gt; S3
+        S3 &lt;--&gt; |"合并访存读写 (Coalesced Access)"| S4
+
+        %% 结果写回
+        S4 -. "7. 计算结果写回" .-&gt; D1
+    end
+
+    D1 -- "D2H 数据传输 (via PCIe)" --&gt; H3</code></pre>
+<hr />
+<h2 id="_2">📋 流程图节点说明</h2>
+<ol>
+<li><strong>主机端 (蓝色区域)</strong>：代表 CPU 及系统内存。它是计算任务的发起者和最终结果的接收者。</li>
+<li><strong>设备端全局 (外层绿色区域)</strong>：包含大容量的橙色 DRAM（全局显存）和负责统筹全局任务调度的模块。</li>
+<li><strong>SM 内部 (内层橙色区域)</strong>：精确映射了我们之前绘制的硬件架构。<ul>
+<li><strong>黄色 Control</strong> 承担了步骤 3 和 4（上下文切换与指令广播）。</li>
+<li><strong>紫色 L1 Cache</strong> 承担了步骤 5（高速数据吞吐）。</li>
+<li><strong>绿色 Cores</strong> 承担了步骤 6（纯粹的算力输出）。</li>
+</ul>
+</li>
+</ol>
+<p>通过虚线（数据流）与实线（控制/指令流）的区分，可以清晰看出：<strong>指令由上至下单向广播，而数据在存储层级之间双向流动。</strong></p>
 <h2 id="_3">🖼️ 架构全景对比</h2>
 <div align="center">
 
@@ -977,12 +1014,96 @@ GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，
 </ul>
 </div>
 <hr />
-<h2 id="_5">💡 一句话总结</h2>
+<h2 id="_5">💡 总结</h2>
 <ul>
 <li><strong>CPU</strong>：一个顶十个的全能冠军，擅长复杂逻辑分支、串行任务。</li>
 <li><strong>GPU</strong>：由数千个小学生组成的方阵，擅长同一时间做大量重复的简单加减法。</li>
 </ul>
 <!-- **你想知道在你的 C++ 代码里添加哪一行简单的 `#pragma` 编译指令，就能让这几千个 GPU 核心瞬间动起来帮你做物理模拟吗？** -->
+
+<h1 id="_6">高能物理探测器中的状态漂移与实时校准</h1>
+<h3 id="pinn-slow-sync">基于 PINN 的“慢同步 (Slow Sync)”在线反演系统</h3>
+<hr />
+<h2 id="_7">核心挑战与解决思路</h2>
+<p><strong>物理痛点：</strong>
+* 在漂移室探测器或 TPC 中，“电子漂移速度（Drift Velocity）”对环境极其敏感。
+* 仅仅 0.1°C 的温度波动即可导致漂移速度改变，进而造成粒子轨迹计算的全面失效。</p>
+<p><strong>解决思路：基于 PINN 的在线校准</strong>
+* <strong>目标：</strong> 实时反推当前的真实漂移速度。
+* <strong>核心方法：</strong> 结合物理信息神经网络（PINN），将纯数据拟合转化为“遵守偏微分方程”的物理反演求解。</p>
+<hr />
+<h2 id="data-preparation">模块一：高质量数据截留 (Data Preparation)</h2>
+<p><strong>慢同步数据流：旁路精准采样</strong>
+在慢同步循环中，无需全量数据，仅需定时从 DAQ 数据流中“截留”一小批高质量事件（Event）作为网络输入。</p>
+<ul>
+<li><strong>真实观测点 (Data Points, <span class="arithmatex">\(N_u\)</span>)</strong></li>
+<li><strong>来源：</strong> 探测器电子学通道直读的 ADC 值。</li>
+<li><strong>格式：</strong> <span class="arithmatex">\((x, t, u)\)</span> —— 空间坐标 <span class="arithmatex">\(x\)</span>、时间 <span class="arithmatex">\(t\)</span>、测量电荷幅度 <span class="arithmatex">\(u\)</span>。</li>
+<li><strong>物理配置点 (Collocation Points, <span class="arithmatex">\(N_f\)</span>)</strong></li>
+<li><strong>来源：</strong> 探测器时空域内的纯数学随机采样 <span class="arithmatex">\((x, t)\)</span>。</li>
+<li><strong>作用：</strong> 无需真实电荷量，强制神经网络在整个时空域内遵守物理约束（PDE）。</li>
+</ul>
+<hr />
+<h2 id="pinn-network-construction">模块二：PINN 网络架构 (Network Construction)</h2>
+<p><strong>反问题求解的核心机理：双向同步训练</strong></p>
+<p>利用 PyTorch 构建包含两个同时训练模块的 PINN 架构：</p>
+<p><strong>1. 函数逼近器 (主干网络 MLP)</strong>
+* <strong>结构：</strong> 例如 4层 × 50神经元。
+* <strong>输入/输出：</strong> 时空坐标 <span class="arithmatex">\((x, t)\)</span> <span class="arithmatex">\(\rightarrow\)</span> 预测电荷连续分布 <span class="arithmatex">\(\hat{u}(x, t)\)</span>。
+* <strong>关键细节：</strong> 激活函数通常使用 <code>tanh</code> 或 <code>sin</code>（取代 ReLU，以保证高阶导数连续性，满足 PDE 代入需求）。</p>
+<p><strong>2. 待求物理参数 (反演目标)</strong>
+* 将未知的漂移速度 <span class="arithmatex">\(v_d\)</span> 或衰减系数 <span class="arithmatex">\(\lambda\)</span> 封装为可训练参数 (<code>torch.nn.Parameter</code>)。
+* <strong>机制：</strong> 与网络权重共同交由优化器进行反向传播更新。</p>
+<hr />
+<h2 id="the-math-optimization">模块三：数学模型与优化 (The Math &amp; Optimization)</h2>
+<p><strong>联合损失函数与物理反演求解</strong></p>
+<p>假设探测器内信号传输满足简化的对流扩散方程 (Convection-Diffusion Equation)：
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{\partial u}{\partial t} + \lambda \frac{\partial u}{\partial x} = D \frac{\partial^2 u}{\partial x^2}\)</span>\)</span></p>
+<p><strong>联合 Loss 的构建：</strong></p>
+<ul>
+<li>
+<p><strong>数据误差 (<span class="arithmatex">\(Loss_{data}\)</span>):</strong> 逼近真实 DAQ 观测值。
+<span class="arithmatex">\(<span class="arithmatex">\(Loss_{data} = \frac{1}{N_u} \sum_{i=1}^{N_u} |\hat{u}(x_i, t_i) - u_i|^2\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>方程残差 (<span class="arithmatex">\(Loss_{PDE}\)</span>):</strong> 利用 Autograd 求导，并将未知量 <span class="arithmatex">\(\lambda\)</span> 代入物理方程。
+<span class="arithmatex">\(<span class="arithmatex">\(Loss_{PDE} = \frac{1}{N_f} \sum_{j=1}^{N_f} \left| \frac{\partial \hat{u}}{\partial t} + \lambda \frac{\partial \hat{u}}{\partial x} - D \frac{\partial^2 \hat{u}}{\partial x^2} \right|^2\)</span>\)</span></p>
+</li>
+</ul>
+<blockquote>
+<p><strong>训练过程：</strong> 优化器在最小化总 Loss 时，同步微调权重与 <span class="arithmatex">\(\lambda\)</span>。秒级收敛后的 <span class="arithmatex">\(\lambda\)</span> 即为当前最真实的漂移速度！</p>
+</blockquote>
+<hr />
+<h2 id="system-integration">模块四：系统闭环架构 (System Integration)</h2>
+<p><strong>“慢同步”在线校准系统的工程执行流</strong></p>
+<ol>
+<li><strong>旁路抓取 (By-pass Sampling):</strong> 独立 C++ 守护进程，每 5 分钟通过共享内存从 10GB/s 主数据流中偷偷复制 1000 个事件。</li>
+<li><strong>GPU 在线反演 (Online Inversion):</strong> 利用集群闲置 GPU 算力执行 PINN 训练。以上一次的 <span class="arithmatex">\(\lambda\)</span> 为初始值，实现秒级极速收敛。</li>
+<li><strong>参数广播 (Parameter Broadcasting):</strong> 通过分布式消息队列（如 Redis / Zookeeper）将计算出的最新刻度参数推送至下游。</li>
+<li><strong>无缝衔接 (Seamless Integration):</strong> 前端触发网络 (Trigger Network) 或在线重建农场 (Online Farm) 实时加载新参数，确保下一秒粒子筛选精准。</li>
+</ol>
+<h2 id="system-integration_1">模块四：系统级闭环架构 (System Integration)</h2>
+<p><strong>“慢同步”在线校准系统的工程执行流</strong></p>
+<pre class="mermaid"><code>graph TD
+    %% 定义节点样式
+    classDef hardware fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef process fill:#e1f5fe,stroke:#039be5,stroke-width:2px;
+    classDef data fill:#fff3e0,stroke:#ff9800,stroke-width:2px;
+    classDef target fill:#e8f5e9,stroke:#4caf50,stroke-width:2px;
+
+    %% 节点与流程
+    DAQ[DAQ 主进程&lt;br/&gt;10GB/s 数据流]:::hardware --&gt;|写入全量数据| Disk[(硬盘存储)]:::hardware
+    DAQ --&gt;|1. 旁路抓取 By-pass&lt;br/&gt;C++ 守护进程/每5分钟| SHM[(共享内存&lt;br/&gt;Shared Memory)]:::data
+
+    SHM --&gt;|截留 1000 个 Event| GPU[2. GPU 在线反演&lt;br/&gt;PINN 模型训练]:::process
+    GPU --&gt;|秒级收敛| Lambda((最新漂移速度 λ)):::data
+
+    Lambda --&gt;|3. 参数广播| MQ{Redis / Zookeeper&lt;br/&gt;分布式消息队列}:::process
+
+    MQ --&gt;|4. 无缝衔接 推送| Trigger[前端触发网络&lt;br/&gt;Trigger Network]:::target
+    MQ --&gt;|4. 无缝衔接 推送| Farm[在线重建农场&lt;br/&gt;Online Farm]:::target
+
+    Trigger -.-&gt;|物理闭环：精准筛选下一秒粒子| DAQ</code></pre>
 
 
 
