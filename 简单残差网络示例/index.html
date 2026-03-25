@@ -728,36 +728,6 @@
 </code></pre></div>
 <img alt="alt text" src="../Figure_1.png" /></p>
 <p>本文档记录了使用多层感知机（MLP）拟合三维曲面 <span class="arithmatex">\(Z = \sin(\pi X) \cdot \sin(\pi Y)\)</span> 的代码</p>
-<hr />
-<pre class="mermaid"><code>graph TD
-    subgraph 数据输入
-        IN["输入张量 x&lt;br&gt;形状: [Batch_Size, 2]&lt;br&gt;(X, Y 坐标)"]
-    end
-
-    subgraph 神经网络 Net
-        FC1["第一层: self.fc1&lt;br&gt;代码: nn.Linear(2, 64)"]
-        ACT1(("激活: torch.tanh()"))
-
-        FC2["第二层: self.fc2&lt;br&gt;代码: nn.Linear(64, 64)"]
-        ACT2(("激活: torch.tanh()"))
-
-        FC3["输出层: self.fc3&lt;br&gt;代码: nn.Linear(64, 1)"]
-    end
-
-    subgraph 预测输出
-        OUT["输出张量 out&lt;br&gt;形状: [Batch_Size, 1]&lt;br&gt;(预测高度 Z)"]
-    end
-
-    IN --&gt;|o = self.fc1(x)| FC1
-    FC1 --&gt;|o = torch.tanh(o)| ACT1
-    ACT1 --&gt;|o = self.fc2(o)| FC2
-    FC2 --&gt;|o = torch.tanh(o)| ACT2
-    ACT2 --&gt;|out = self.fc3(o)| FC3
-    FC3 --&gt;|return out| OUT
-
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef act fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    class ACT1,ACT2 act;</code></pre>
 
 
 
