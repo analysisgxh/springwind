@@ -1,0 +1,1092 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://your-username.github.io/your-repo-name/CUDA/">
+      
+      
+        <link rel="prev" href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>Cuda - Sh-yow H-way Gow</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cpu-vs-gpu" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sh-yow H-way Gow" class="md-header__button md-logo" aria-label="Sh-yow H-way Gow" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sh-yow H-way Gow
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cuda
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%8F%A4%E5%85%B8%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-tabs__link">
+        
+  
+    
+  
+  古典傅里叶分析
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E7%8E%B0%E4%BB%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-tabs__link">
+        
+  
+    
+  
+  现代傅里叶分析
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%88%86%E5%B8%83%E7%90%86%E8%AE%BA/" class="md-tabs__link">
+        
+  
+    
+  
+  分布理论
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90/" class="md-tabs__link">
+        
+  
+    
+  
+  函数分析
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97MPI/" class="md-tabs__link">
+        
+  
+    
+  
+  高性能计算
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/" class="md-tabs__link">
+        
+  
+    
+  
+  竹林语录
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Cuda
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sh-yow H-way Gow" class="md-nav__button md-logo" aria-label="Sh-yow H-way Gow" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sh-yow H-way Gow
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8F%A4%E5%85%B8%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典傅里叶分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%8E%B0%E4%BB%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    现代傅里叶分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布理论
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    函数分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97MPI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高性能计算
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AB%B9%E6%9E%97%E8%AF%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    竹林语录
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Cuda
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cpu-vs-gpu">硬件架构图解：CPU vs. GPU</h1>
+<!-- 在处理科学计算（如 MPI）、深度学习（PINN 模型）或 MkDocs 构建任务时，理解底层硬件架构的差异能有效提升开发效率。 -->
+<p>以下是经典的 CPU 与 GPU 架构对比图解。</p>
+<hr />
+<h1 id="cpu-gpu">CPU 与 GPU 硬件架构深度对比</h1>
+<p>以下架构图展示了两者在核心（Core）、控制单元（Control）和缓存（Cache）分配上的本质区别。</p>
+<div style="display:flex;justify-content:space-between;gap:20px;font-family:Arial,sans-serif;text-align:center;color:white;font-weight:bold;margin-top:20px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:40px;">
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+</div>
+<div style="background-color:#6fa3d2;height:60px;display:flex;align-items:center;justify-content:center;">L3 Cache</div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">CPU</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:205px;">
+<div style="width:30px;display:flex;flex-direction:column;">
+<div style="background:repeating-linear-gradient(to bottom,#f7c05c,#f7c05c 10px,#694489 10px,#694489 20px);flex:1;"></div>
+</div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(#5a8a48 1px,transparent 1px),linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;display:flex;align-items:center;justify-content:center;text-shadow:1px 1px 2px black;">Thousands of Cores</div>
+</div>
+<div style="background-color:#6fa3d2;height:40px;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:transparent;height:60px;"></div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">GPU</div>
+</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;gap:20px;font-family:Arial,sans-serif;text-align:center;color:white;font-weight:bold;margin-top:20px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:40px;">
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+</div>
+<div style="background-color:#6fa3d2;height:60px;display:flex;align-items:center;justify-content:center;">L3 Cache</div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">CPU</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:205px;">
+<div style="width:30px;display:flex;flex-direction:column;gap:0px;">
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+<div style="background-color:#f7c05c;flex:1;"></div>
+<div style="background-color:#694489;flex:1;"></div>
+</div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(#5a8a48 1px,transparent 1px),linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;display:flex;align-items:center;justify-content:center;text-shadow:1px 1px 2px black;">Thousands of Cores</div>
+</div>
+<div style="background-color:#6fa3d2;height:40px;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:transparent;height:60px;"></div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">GPU</div>
+</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;gap:20px;font-family:Arial,sans-serif;text-align:center;color:white;font-weight:bold;margin-top:20px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:40px;">
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+</div>
+<div style="background-color:#6fa3d2;height:60px;display:flex;align-items:center;justify-content:center;">L3 Cache</div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">CPU</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;flex-direction:column;height:205px;position:relative;">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-shadow:1px 1px 2px black;pointer-events:none;z-index:10;">Thousands of Cores</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#694489;width:30px;border-bottom:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+</div>
+<div style="background-color:#6fa3d2;height:40px;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:transparent;height:60px;"></div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">GPU</div>
+</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;gap:20px;font-family:Arial,sans-serif;text-align:center;color:white;font-weight:bold;margin-top:20px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:100px;">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="background-color:#7bb167;flex:1;display:flex;align-items:center;justify-content:center;">Core</div>
+<div style="background-color:#694489;height:25px;display:flex;align-items:center;justify-content:center;font-size:12px;">L1 Cache</div>
+</div>
+<div style="background-color:#f7c05c;width:40px;display:flex;align-items:center;justify-content:center;font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);">Control</div>
+</div>
+<div style="display:flex;gap:5px;height:40px;">
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:#6fa3d2;flex:1;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+</div>
+<div style="background-color:#6fa3d2;height:60px;display:flex;align-items:center;justify-content:center;">L3 Cache</div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">CPU</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+<div style="display:flex;flex-direction:column;height:205px;position:relative;">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-shadow:1px 1px 2px black;pointer-events:none;z-index:10;">Thousands of Cores</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+<div style="display:flex;flex:1;">
+<div style="background-color:#f7c05c;width:15px;border-bottom:1px solid #5a8a48;"></div>
+<div style="background-color:#694489;width:15px;border-bottom:1px solid #5a8a48;border-right:1px solid #5a8a48;"></div>
+<div style="flex:1;background-color:#7bb167;background-image:linear-gradient(90deg,#5a8a48 1px,transparent 1px);background-size:15px 15px;border-bottom:1px solid #5a8a48;"></div>
+</div>
+</div>
+<div style="background-color:#6fa3d2;height:40px;display:flex;align-items:center;justify-content:center;font-size:14px;">L2 Cache</div>
+<div style="background-color:transparent;height:60px;"></div>
+<div style="background-color:#dd8247;height:80px;display:flex;align-items:center;justify-content:center;font-size:18px;">DRAM</div>
+<div style="color:#333;font-size:18px;margin-top:5px;">GPU</div>
+</div>
+</div>
+
+<pre class="mermaid"><code>graph TD
+    A[开始编写代码] --&gt; B{编译通过了吗?}
+    B -- 是 --&gt; C[运行测试]
+    B -- 否 --&gt; D[查看报错信息]
+    D --&gt; A
+    C --&gt; E((结束))</code></pre>
+<h1 id="gpu">📊 GPU 计算执行全局与局部流程图</h1>
+<p>以下流程图（Flowchart）严格按照硬件执行顺序，展示了从 CPU 主机端发起任务，到 GPU 内部流多处理器（SM）执行 SIMT 指令，再到数据写回的完整生命周期。</p>
+<hr />
+<h2 id="_1">📋 流程图节点说明</h2>
+<ol>
+<li><strong>主机端 (蓝色区域)</strong>：代表 CPU 及系统内存。它是计算任务的发起者和最终结果的接收者。</li>
+<li><strong>设备端全局 (外层绿色区域)</strong>：包含大容量的橙色 DRAM（全局显存）和负责统筹全局任务调度的模块。</li>
+<li><strong>SM 内部 (内层橙色区域)</strong>：精确映射了我们之前绘制的硬件架构。<ul>
+<li><strong>黄色 Control</strong> 承担了步骤 3 和 4（上下文切换与指令广播）。</li>
+<li><strong>紫色 L1 Cache</strong> 承担了步骤 5（高速数据吞吐）。</li>
+<li><strong>绿色 Cores</strong> 承担了步骤 6（纯粹的算力输出）。</li>
+</ul>
+</li>
+</ol>
+<p>通过虚线（数据流）与实线（控制/指令流）的区分，可以清晰看出：<strong>指令由上至下单向广播，而数据在存储层级之间双向流动。</strong></p>
+<h1 id="gpu_1">⚙️ GPU 硬件架构与核心工作流程深度解析</h1>
+<p>在理解了 GPU 的物理微架构（即 <code>Control</code> + <code>L1 Cache</code> + <code>Cores</code> 强绑定组成的流多处理器 SM）后，我们将严谨地剖析其从宏观到微观的计算执行流程。</p>
+<hr />
+<h2 id="host-vs-device">🌐 一、 宏观层级：主机与设备 (Host vs. Device) 交互流程</h2>
+<p>GPU 作为协处理器，其任务的启动高度依赖于 CPU（主机）。完整的计算周期通常包含以下三个核心阶段：</p>
+<div class="admonition info">
+<p class="admonition-title">全局交互流向</p>
+<p><strong>1. 存储器分配与数据传输 (H2D Copy)</strong>
+主机端 (CPU) 在设备端 (GPU) 的全局存储器（如架构图底部的橙色 DRAM）中分配空间，并通过 PCIe 等高带宽物理总线，将网格坐标、物理场初始值或网络权重等数据从主机内存传输至设备 DRAM。</p>
+<p><strong>2. 内核启动与参数卸载 (Kernel Launch)</strong>
+CPU 触发内核执行指令（Kernel Launch），同时向 GPU 声明计算的维度层次（网格 Grid 与线程块 Block/CTA）。这些元数据被提交给 GPU 的顶层全局指令调度器。</p>
+<p><strong>3. 计算网络 (Compute Grid) 的全局调度</strong>
+GPU 顶层调度器根据预设的 Block 维度及当前空闲的硬件资源，将成百上千个线程块均衡派发给各个独立的 <strong>SM（流多处理器）</strong>，实现粗粒度的数据并行（Data Parallelism）。</p>
+</div>
+<hr />
+<h2 id="sm">🔬 二、 微观层级：SM (流多处理器) 内部执行机制</h2>
+<p>当线程块被分配到我们在架构图中绘制的“单行”（即一个 SM，包含黄色的 Control、紫色的 L1 以及绿色的 Cores 阵列）时，将触发 GPU 最核心的 <strong>SIMT（单指令多线程）</strong> 机制。</p>
+<div class="admonition abstract">
+<p class="admonition-title">SM 内部的流水线作业</p>
+<p><strong>步骤 1：线程束调度与指令处理 (Warp Scheduling)</strong>
+到达 SM 的线程块被硬件进一步分割为<strong>线程束 (Warp)</strong>（在 NVIDIA 架构中通常为 32 个线程）。图中的 <strong>Control 块（黄色）</strong> 包含了 Warp 调度器，负责在多个待就绪的 Warp 之间进行极低开销的上下文切换，以隐藏访存延迟（Latency Hiding）。</p>
+<p><strong>步骤 2：SIMT 指令广播 (Instruction Dispatch)</strong>
+<strong>Control 块</strong> 中的指令提取单元获取一条公共指令（如 <code>residual[i] = predict[i] - true_val[i]</code>），并将其<strong>广播</strong>给该行后方绑定的所有 <strong>Cores 计算阵列（绿色）</strong>。这意味着数百个核心无需各自的控制单元，而是严格遵循同一控制流同步运行。</p>
+<p><strong>步骤 3：极速存储访问与算术运算 (Memory Access &amp; Arithmetic)</strong>
+接受指令后，<strong>Cores 阵列</strong> 并发访问紧邻的 <strong>L1 Cache 块（紫色）</strong>。每个核心根据自身的 Warp-level 索引获取连续的、不同的数据切片（合并访存 Coalesced Memory Access），并在同一个时钟周期内，整齐划一地完成各自的浮点或整数算术运算。</p>
+</div>
+<hr />
+<h2 id="_2">🎯 三、 架构图解映射：数据流与指令流总结</h2>
+<p>回顾修正后的架构图，SM 内部的组件强绑定关系决定了指令与数据的物理流向：</p>
+<div class="admonition success">
+<p class="admonition-title">硬件绑定的底层逻辑</p>
+<ul>
+<li>🟡 <strong>指令/控制流 (黄色线路)</strong>：外部指令 <span class="arithmatex">\(\rightarrow\)</span> 全局调度器 <span class="arithmatex">\(\rightarrow\)</span> 路由至各 SM 的 <strong>Control 块</strong> <span class="arithmatex">\(\rightarrow\)</span> 广播给同行的 Cores。Control 块专属于该行，负责分支发散（Branch Divergence）处理。</li>
+<li>🟣 <strong>高速数据流 (紫色线路)</strong>：GPU DRAM <span class="arithmatex">\(\rightarrow\)</span> <strong>L1 Cache 块</strong> <span class="arithmatex">\(\rightarrow\)</span> 同行的 Cores。L1 Cache 充当了该行核心的高速暂存区，确保数据吞吐量能够匹配 ALU 的计算峰值。</li>
+<li>🟢 <strong>计算执行 (绿色阵列)</strong>：剥离了复杂的逻辑控制与庞大的缓存后，仅保留纯粹的算术逻辑单元 (ALU) 和浮点运算单元 (FPU)，以极高的空间利用率实现了算力密度的最大化。</li>
+</ul>
+</div>
+<h2 id="_3">🖼️ 架构全景对比</h2>
+<div align="center">
+
+![CPU vs GPU 硬件架构对比图](https://your_website.com/images/cpu_vs_gpu.png)
+
+</div>
+
+<hr />
+<h2 id="_4">🔍 核心组件深度解析</h2>
+<p>通过观察上图，我们可以清晰地看到两种处理器在功能组件分配上的巨大差异。</p>
+<div class="admonition info">
+<p class="admonition-title">组件图例说明</p>
+<ul>
+<li><span style="display:inline-block; width:15px; height:15px; background-color:#74b45d; border:1px solid #000; margin-right:5px; vertical-align:middle;"></span> <strong>Core (核心)</strong>：计算的主力军，负责浮点和整数运算。</li>
+<li><span style="display:inline-block; width:15px; height:15px; background-color:#fabd51; border:1px solid #000; margin-right:5px; vertical-align:middle;"></span> <strong>Control (控制单元)</strong>：复杂的逻辑控制，如分支预测、指令调度。</li>
+<li><span style="display:inline-block; width:15px; height:15px; background-color:#6c369e; border:1px solid #000; margin-right:5px; vertical-align:middle;"></span> <strong>L1 Cache (一级缓存)</strong>：离核心最近，速度最快。</li>
+<li><span style="display:inline-block; width:15px; height:15px; background-color:#65a6d3; border:1px solid #000; margin-right:5px; vertical-align:middle;"></span> <strong>L2/L3 Cache (二级/三级缓存)</strong>：更大容量的本地数据存储。</li>
+<li><span style="display:inline-block; width:15px; height:15px; background-color:#cb7a4c; border:1px solid #000; margin-right:5px; vertical-align:middle;"></span> <strong>DRAM (内存)</strong>：外部高带宽存储。</li>
+</ul>
+</div>
+<h3 id="1-cpu">1. CPU：复杂的全能型选手</h3>
+<div class="admonition quote">
+<p class="admonition-title">图解分析</p>
+<ul>
+<li><strong>核心数</strong>：只有少数几个（图中为 4 个），但每个都非常强大。</li>
+<li><strong>控制与缓存</strong>：<span style="color:red; font-weight:bold;">绝大部分面积被 Control (黄色) 和大量 Cache (蓝色/紫色) 占据</span>。</li>
+<li><strong>设计哲学</strong>：CPU 被设计为处理极其复杂的串行逻辑。通过巨大的缓存和复杂的控制单元来降低数据延迟。</li>
+</ul>
+</div>
+<h3 id="2-gpu">2. GPU：庞大的并行计算方阵</h3>
+<div class="admonition quote">
+<p class="admonition-title">图解分析</p>
+<ul>
+<li><strong>核心数</strong>：<strong>数以千计的小核心 (绿色)</strong> 密集排列。</li>
+<li><strong>控制与缓存</strong>：<span style="color:red; font-weight:bold;">Control 和 Cache 的占比显著缩小</span>。每个小核心分到的缓存和控制极少。</li>
+<li><strong>设计哲学</strong>：GPU 追求绝对的<strong>吞吐量</strong>。它把几乎所有晶体管都用来做计算，适合处理数据密集型、高度并行的任务。</li>
+</ul>
+</div>
+<hr />
+<h2 id="_5">💡 一句话总结</h2>
+<ul>
+<li><strong>CPU</strong>：一个顶十个的全能冠军，擅长复杂逻辑分支、串行任务。</li>
+<li><strong>GPU</strong>：由数千个小学生组成的方阵，擅长同一时间做大量重复的简单加减法。</li>
+</ul>
+<!-- **你想知道在你的 C++ 代码里添加哪一行简单的 `#pragma` 编译指令，就能让这几千个 GPU 核心瞬间动起来帮你做物理模拟吗？** -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 <a href="" target="_blank" rel="noopener">gxh</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/james-willett" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/TheJamesWillett" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/willettjames/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
