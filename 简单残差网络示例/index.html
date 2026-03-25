@@ -605,127 +605,124 @@
 
 
 
-<h1 id="pytorch">PyTorch 拟合三维曲面：代码重构与网络解析</h1>
-<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Microsoft YaHei&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.unicode_minus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1"># 1. 定义网络结构 (稍微增加神经元数量以更好地拟合曲面)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="c1"># 2. 设备配置</span>
-    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-    <span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-
-    <span class="c1"># 3. 数据生成 (极大地优化了内存占用)</span>
-    <span class="n">POINTS</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># 100x100 = 1万个点，足够训练和画图，不会卡死</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">POINTS</span><span class="p">)</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">POINTS</span><span class="p">)</span>
-
-    <span class="c1"># 快速生成网格</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
-
-    <span class="c1"># 将网格展平为神经网络的输入格式 [N, 2]</span>
-    <span class="n">x_flat</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="n">y_flat</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="n">x_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">y_flat</span><span class="p">))</span>  <span class="c1"># 替换掉原先极其耗内存的 list(zip())</span>
-    <span class="n">y_T</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>         <span class="c1"># 目标值 [N, 1]</span>
-
-    <span class="c1"># 转为 Tensor 并移至 GPU</span>
-    <span class="n">x_T</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-    <span class="n">y_T</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-
-    <span class="c1"># 4. 优化器和损失函数设置 (Adam，收敛极快)</span>
-    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-    <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-
-    <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">epochs_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;开始训练...&quot;</span><span class="p">)</span>
-    <span class="c1"># 5. 训练循环 (因为用了 Adam，10000 次通常就够了)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
-        <span class="n">y_train</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x_T</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_T</span><span class="p">)</span>
-
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;提前收敛于 epoch </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">break</span>
-
-        <span class="c1"># 记录和打印 Loss</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch = </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">, Loss = </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">epochs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;训练结束！最终误差:&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-
-    <span class="c1"># 6. 推理与作图准备</span>
-    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># 推理时关闭梯度计算，节省显存</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x_T</span><span class="p">)</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">POINTS</span><span class="p">,</span> <span class="n">POINTS</span><span class="p">)</span> <span class="c1"># 恢复成 100x100 的网格形状</span>
-
-    <span class="c1"># 7. 绘图</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-
-    <span class="c1"># 图1：真实曲面</span>
-    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;真实曲面 Z = sin(πx)sin(πy)&quot;</span><span class="p">)</span>
-
-    <span class="c1"># 图2：预测曲面</span>
-    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;网络预测曲面&quot;</span><span class="p">)</span>
-
-    <span class="c1"># 图3：叠加对比图</span>
-    <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rainbow&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># alpha 设置透明度</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;真实 vs 预测叠加&quot;</span><span class="p">)</span>
-
-    <span class="c1"># 图4：Loss 曲线</span>
-    <span class="n">ax4</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs_list</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MSE Loss&#39;</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;训练损失曲线&quot;</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax4</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-    <span class="c1"># 图5：误差散点图</span>
-    <span class="n">ax5</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="n">Z</span>
-    <span class="n">ax5</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
-    <span class="n">ax5</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;绝对误差分布&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<h1 id="pytorch">PyTorch 拟合三维曲面：</h1>
+<p>import torch
+import torch.nn as nn
+import matplotlib.pyplot as plt
+import torch.optim as optim
+import numpy as np</p>
+<p>plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+plt.rcParams['axes.unicode_minus'] = False</p>
+<h1 id="1">1. 定义网络结构 (稍微增加神经元数量以更好地拟合曲面)</h1>
+<p>class Net(nn.Module):
+    def <strong>init</strong>(self):
+        super(Net, self).<strong>init</strong>()
+        self.fc1 = nn.Linear(2, 64)
+        self.fc2 = nn.Linear(64, 64)
+        self.fc3 = nn.Linear(64, 1)</p>
+<div class="highlight"><pre><span></span><code>def forward(self, x):
+    o = torch.tanh(self.fc1(x))
+    o = torch.tanh(self.fc2(o))
+    out = self.fc3(o)
+    return out
 </code></pre></div>
+<p>if <strong>name</strong> == "<strong>main</strong>":
+    # 2. 设备配置
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    net = Net().to(device)</p>
+<div class="highlight"><pre><span></span><code># 3. 数据生成 (优化了内存占用)
+POINTS = 100  # 100x100 = 1万个点，足够训练和画图，不会卡死
+x = np.linspace(0, 1, POINTS)
+w = np.linspace(0, 1, POINTS)
+
+# 快速生成网格
+X, Y = np.meshgrid(x, w)
+Z = np.multiply(np.sin(X * np.pi), np.sin(Y * np.pi))
+
+# 将网格展平为神经网络的输入格式 [N, 2]
+x_flat = X.flatten()
+y_flat = Y.flatten()
+x_T = np.column_stack((x_flat, y_flat))  # 替换掉原先极其耗内存的 list(zip())
+y_T = Z.flatten().reshape(-1, 1)         # 目标值 [N, 1]
+
+# 转为 Tensor 并移至 GPU
+x_T = torch.tensor(x_T, dtype=torch.float32).to(device)
+y_T = torch.tensor(y_T, dtype=torch.float32).to(device)
+
+# 4. 优化器和损失函数设置 (Adam，收敛极快)
+optimizer = optim.Adam(net.parameters(), lr=0.01)
+loss_fn = nn.MSELoss().to(device)
+
+losses = []
+epochs_list = []
+
+print(&quot;开始训练...&quot;)
+# 5. 训练循环 (因为用了 Adam，10000 次通常就够了)
+for i in range(10000):
+    y_train = net(x_T)
+    loss = loss_fn(y_train, y_T)
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+    if loss.item() == 0.0:
+        print(f&quot;提前收敛于 epoch {i}&quot;)
+        break
+
+    # 记录和打印 Loss
+    if i == 0 or (i + 1) % 1000 == 0:
+        print(f&quot;Epoch = {i+1}, Loss = {loss.item():.6f}&quot;)
+
+    if i % 100 == 0:
+        epochs_list.append(i)
+        losses.append(loss.item())
+
+print(&quot;训练结束！最终误差:&quot;, loss.item())
+
+# 6. 推理与作图准备
+with torch.no_grad(): # 推理时关闭梯度计算，节省显存
+    y_pred = net(x_T)
+    c = y_pred.cpu().numpy().reshape(POINTS, POINTS) # 恢复成 100x100 的网格形状
+
+# 7. 绘图
+fig = plt.figure(figsize=(15, 8))
+
+# 图1：真实曲面
+ax1 = fig.add_subplot(2, 3, 1, projection=&#39;3d&#39;)
+ax1.plot_surface(X, Y, Z, cmap=&quot;rainbow&quot;)
+ax1.set_title(&quot;真实曲面 Z = sin(πx)sin(πy)&quot;)
+
+# 图2：预测曲面
+ax2 = fig.add_subplot(2, 3, 2, projection=&#39;3d&#39;)
+ax2.plot_surface(X, Y, c, cmap=&#39;Blues&#39;)
+ax2.set_title(&quot;网络预测曲面&quot;)
+
+# 图3：叠加对比图
+ax3 = fig.add_subplot(2, 3, 3, projection=&#39;3d&#39;)
+ax3.plot_surface(X, Y, Z, cmap=&quot;rainbow&quot;, alpha=0.5) # alpha 设置透明度
+ax3.plot_surface(X, Y, c, cmap=&#39;Blues&#39;, alpha=0.5)
+ax3.set_title(&quot;真实 vs 预测叠加&quot;)
+
+# 图4：Loss 曲线
+ax4 = fig.add_subplot(2, 3, 4)
+ax4.plot(epochs_list, losses, label=&#39;MSE Loss&#39;)
+ax4.set_title(&quot;训练损失曲线&quot;)
+ax4.set_xlabel(&quot;Epoch&quot;)
+ax4.set_ylabel(&quot;Loss&quot;)
+ax4.grid(True)
+ax4.legend()
+
+# 图5：误差散点图
+ax5 = fig.add_subplot(2, 3, 5, projection=&#39;3d&#39;)
+error = c - Z
+ax5.plot_surface(X, Y, error, cmap=&#39;Reds&#39;)
+ax5.set_title(&quot;绝对误差分布&quot;)
+
+plt.tight_layout()
+plt.show()
+</code></pre></div>
+<p>```
 <img alt="alt text" src="../Figure_1.png" /></p>
 <p>本文档记录了使用多层感知机（MLP）拟合三维曲面 <span class="arithmatex">\(Z = \sin(\pi X) \cdot \sin(\pi Y)\)</span> 的代码</p>
 
