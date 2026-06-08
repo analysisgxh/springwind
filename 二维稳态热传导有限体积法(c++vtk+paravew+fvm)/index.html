@@ -1071,7 +1071,9 @@ q_S=k\frac{T_S-T_P}{\Delta y}\Delta x.
 <hr />
 <h2 id="6">6. 类与函数设计</h2>
 <h3 id="61-namespace-heat2d">6.1 <code>namespace Heat2D</code></h3>
-<p>使用命名空间把二维热传导程序相关的类和函数组织起来，避免与其他程序发生命名冲突。</p>
+<!-- 
+使用命名空间把二维热传导程序相关的类和函数组织起来，避免与其他程序发生命名冲突。 -->
+
 <div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">Heat2D</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">// 网格、参数、方程组、求解器等代码</span>
@@ -1119,7 +1121,8 @@ q_S=k\frac{T_S-T_P}{\Delta y}\Delta x.
 </tr>
 </tbody>
 </table>
-<p>这样做的好处是物理参数集中管理，后续修改更加方便。</p>
+<!-- 这样做的好处是物理参数集中管理，后续修改更加方便。 -->
+
 <hr />
 <h3 id="63-grid2d">6.3 <code>Grid2D</code></h3>
 <p><code>Grid2D</code> 用于管理二维网格。</p>
@@ -1228,7 +1231,8 @@ AX=b.
 </tr>
 </tbody>
 </table>
-<p>这样做可以把不同位置的离散方程分开处理，边界条件更加清楚。</p>
+<!-- 这样做可以把不同位置的离散方程分开处理，边界条件更加清楚。 -->
+
 <hr />
 <h3 id="66-gaussseidelsolver">6.6 <code>GaussSeidelSolver</code></h3>
 <p><code>GaussSeidelSolver</code> 用于求解线性方程组：</p>
