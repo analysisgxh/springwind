@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://your-username.github.io/your-repo-name/%E7%8E%B0%E4%BB%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/">
+        <link rel="canonical" href="https://your-username.github.io/your-repo-name/Nvim%E6%95%99%E7%A8%8B/">
       
       
-        <link rel="prev" href="../%E5%8F%A4%E5%85%B8%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/">
-      
-      
-        <link rel="next" href="../%E5%88%86%E5%B8%83%E7%90%86%E8%AE%BA/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>现代傅里叶分析 - Sh-yow H-way Gow</title>
+        <title>Neovide + WSL 使用笔记 - Sh-yow H-way Gow</title>
       
     
     
@@ -75,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#neovide-wsl" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -105,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              现代傅里叶分析
+              Neovide + WSL 使用笔记
             
           </span>
         </div>
@@ -234,11 +235,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../%E7%8E%B0%E4%BB%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-tabs__link">
         
   
     
@@ -450,17 +449,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../%E7%8E%B0%E4%BB%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -470,7 +462,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -638,9 +629,235 @@
 
 
 
-  <h1>现代傅里叶分析</h1>
+<h1 id="neovide-wsl">Neovide + WSL 使用笔记</h1>
+<h2 id="neovidewsl">🚀 启动 Neovide（WSL 模式）</h2>
+<p>最基础、标准的启动命令（注意是两个减号）：</p>
+<div class="highlight"><pre><span></span><code><span class="n">neovide</span> <span class="p">-</span><span class="n">-wsl</span>
+</code></pre></div>
+<h2 id="_1">打开当前目录</h2>
+<div class="highlight"><pre><span></span><code><span class="n">neovide</span> <span class="p">-</span><span class="n">-wsl</span> <span class="p">.</span>
+</code></pre></div>
+<h2 id="_2">打开指定文件</h2>
+<div class="highlight"><pre><span></span><code><span class="n">neovide</span> <span class="p">-</span><span class="n">-wsl</span> <span class="n">path</span><span class="p">/</span><span class="n">to</span><span class="p">/</span><span class="n">your</span><span class="p">/</span><span class="n">file</span>
+</code></pre></div>
+<h1 id="nvimtree">NvimTree 关闭与切换笔记</h1>
+<h2 id="_3">方法一：使用命令</h2>
+<div class="highlight"><pre><span></span><code><span class="p">:</span>NvimTreeClose
+</code></pre></div>
+<h2 id="ctrl-n">方法二：使用快捷键 （默认是 <code>Ctrl + n</code>，可以在配置文件中修改）</h2>
+<p><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="k">e</span> <span class="p">~</span><span class="sr">/.config/</span>nvim/init.<span class="k">lua</span>
+<span class="p">--</span> 在 init.<span class="k">lua</span> 中添加以下配置来修改快捷键
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;leader&gt;e&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;:NvimTreeToggle&lt;CR&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Toggle NvimTree&quot;</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div></p>
+<h2 id="_4">说明</h2>
+<ul>
+<li><code>&lt;leader&gt;</code> 默认是空格键  </li>
+<li><code>&lt;leader&gt;e</code> 表示按下「空格 + e」  </li>
+<li><code>&lt;CR&gt;</code> 表示自动执行回车  </li>
+<li><code>n</code> 表示在普通模式下生效  </li>
+</ul>
+<hr />
+<h2 id="_5">使用效果</h2>
+<p>配置完成并重启 Neovim 后：</p>
+<ul>
+<li>按「空格 + e」打开文件树  </li>
+<li>再按一次「空格 + e」关闭文件树  </li>
+</ul>
+<h2 id="_6">自动补全快捷键</h2>
+<div class="highlight"><pre><span></span><code>👇 Ctrl + n    向下选择（Next）
+👆 Ctrl + p    向上选择（Previous）
+</code></pre></div>
+<h1 id="neovim">Neovim 复制粘贴笔记</h1>
+<h2 id="_7">常见误区</h2>
+<p>在 Neovim（Vim 家族）中：</p>
+<ul>
+<li><code>Ctrl + C</code> 不能用于复制（用于中断操作）  </li>
+<li><code>Ctrl + V</code> 不能用于粘贴（用于进入块选择模式）  </li>
+</ul>
+<hr />
+<h2 id="yank-put">核心法则：Yank &amp; Put</h2>
+<ul>
+<li>复制：<code>y</code>（Yank）  </li>
+<li>粘贴：<code>p</code>（Put）  </li>
+</ul>
+<hr />
+<h2 id="_8">如何复制</h2>
+<div class="highlight"><pre><span></span><code>1. 按 v 进入可视模式
+2. 移动光标选择内容（h / j / k / l 或方向键）
+3. 按 y 复制
+</code></pre></div>
+<h2 id="_9">如何粘贴</h2>
+<div class="highlight"><pre><span></span><code>1. 按 v 进入可视模式
+2. 移动光标选择内容（h / j / k / l 或方向键）
+3. 按 p 粘贴
+</code></pre></div>
+<h2 id="_10">常用技巧</h2>
+<ul>
+<li>复制整行：<code>yy</code></li>
+<li>复制多行：<code>3yy</code>（复制当前行及下面两行）</li>
+<li>粘贴到当前行上方：<code>P</code></li>
+<li>粘贴到当前行下方：<code>p</code></li>
+<li>复制到系统剪贴板（需要配置支持）：<code>"+y</code>（复制）和 <code>"+p</code>（粘贴）</li>
+<li>撤销操作：<code>u</code></li>
+<li>重做操作：<code>Ctrl + r</code></li>
+<li>删除文本（同时复制到寄存器）：<code>d</code>（例如 <code>dd</code> 删除整行）</li>
+<li>替换文本：<code>r</code>（例如 <code>rX</code> 将光标所在字符替换为 X）</li>
+<li>进入块选择模式：<code>Ctrl + v</code>（用于选择矩形区域）</li>
+<li>进入行选择模式：<code>V</code>（用于选择整行）</li>
+<li>进入块选择模式后，使用方向键选择区域，然后按 <code>y</code> 复制或 <code>d</code> 删除</li>
+<li>使用寄存器：<code>"a</code>（选择寄存器 a），例如 <code>"ayy</code> 将当前行复制到寄存器 a，之后可以使用 <code>"ap</code> 从寄存器 a 粘贴</li>
+<li>使用寄存器查看：<code>:registers</code>（显示所有寄存器内容）</li>
+<li>使用寄存器删除：<code>"ad</code>（将删除的内容存储到</li>
+<li>寄存器 a，例如 <code>"add</code> 删除当前行并存储到寄存器 a）</li>
+<li>使用寄存器替换：<code>"ar</code>（将替换的内容存</li>
+<li>储到寄存器 a，例如 <code>"arX</code> 将光标所在字符替换为 X，并将被替换的字符存储到寄存器 a）</li>
+<li>使用寄存器粘贴：<code>"ap</code>（从寄存器 a 粘贴内容）</li>
+<li>使用寄存器粘贴到当前行上方：<code>"aP</code></li>
+<li>使用寄存器粘贴到当前行下方：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前光标位置：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前行上方：<code>"aP</code></li>
+<li>使用寄存器粘贴到当前行下方：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前光标位置：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前行上方：<code>"aP</code></li>
+<li>使用寄存器粘贴到当前行下方：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前光标位置：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前行上方：<code>"aP</code></li>
+<li>使用寄存器粘贴到当前行下方：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前光标位置：<code>"ap</code></li>
+<li>使用寄存器粘贴到当前行上方：<code>"aP</code></li>
+</ul>
+<h1 id="neovim_1">Neovim 内置终端使用笔记</h1>
+<h2 id="1">1. 打开终端（原生命令）</h2>
+<p>在 Neovim 中，可以直接使用原生命令打开终端。</p>
+<hr />
+<h3 id="_11">当前窗口打开终端</h3>
+<div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nb">term</span>
+</code></pre></div>
+<ul>
+<li>在当前窗口直接打开终端</li>
+<li>会覆盖当前正在查看的代码窗口</li>
+</ul>
+<hr />
+<h3 id="_12">横向分屏打开终端</h3>
+<div class="highlight"><pre><span></span><code><span class="p">:</span>split <span class="p">|</span> <span class="nb">term</span>
+</code></pre></div>
+<ul>
+<li>横向分屏</li>
+<li>在下方打开终端</li>
+</ul>
+<hr />
+<h3 id="_13">纵向分屏打开终端</h3>
+<div class="highlight"><pre><span></span><code><span class="p">:</span><span class="k">vsplit</span> <span class="p">|</span> <span class="nb">term</span>
+</code></pre></div>
+<ul>
+<li>纵向分屏</li>
+<li>在右侧打开终端</li>
+</ul>
+<hr />
+<h3 id="_14">底部固定高度打开终端</h3>
+<div class="highlight"><pre><span></span><code><span class="p">:</span><span class="k">botright</span> <span class="m">10</span>split <span class="p">|</span> <span class="nb">term</span>
+</code></pre></div>
+<ul>
+<li>在最下方打开终端</li>
+<li>终端高度固定为 <code>10</code> 行</li>
+<li>常用于 C++ 调试布局</li>
+</ul>
+<hr />
+<h2 id="2">2. 终端与代码之间切换</h2>
+<p>打开终端后，需要区分两种模式：</p>
+<ul>
+<li>终端输入模式</li>
+<li>普通模式</li>
+</ul>
+<p>很多新手打开终端后无法退出，是因为仍然停留在终端输入模式中。</p>
+<hr />
+<h3 id="_15">进入终端输入模式</h3>
+<div class="highlight"><pre><span></span><code>i
+</code></pre></div>
+<p>或：</p>
+<div class="highlight"><pre><span></span><code>a
+</code></pre></div>
+<ul>
+<li>点击终端窗口</li>
+<li>按 <code>i</code> 或 <code>a</code></li>
+<li>可以像普通终端一样输入命令</li>
+</ul>
+<hr />
+<h3 id="_16">退出终端输入模式</h3>
+<div class="highlight"><pre><span></span><code>Ctrl + \  →  Ctrl + n
+</code></pre></div>
+<ul>
+<li>先按 <code>Ctrl + \</code></li>
+<li>再按 <code>Ctrl + n</code></li>
+<li>即可回到普通模式</li>
+</ul>
+<hr />
+<h3 id="_17">回到普通模式后的操作</h3>
+<p>只有回到普通模式后，才能使用窗口命令。</p>
+<div class="highlight"><pre><span></span><code>Ctrl + w
+</code></pre></div>
+<ul>
+<li>用于切换窗口</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">:</span><span class="k">q</span>
+</code></pre></div>
+<ul>
+<li>用于关闭终端窗口</li>
+</ul>
+<hr />
+<h2 id="3">3. 配置一键呼出终端（推荐）</h2>
+<p>如果经常使用终端，可以在 <code>init.lua</code> 中设置快捷键。</p>
+<p>打开配置文件：</p>
+<div class="highlight"><pre><span></span><code><span class="p">:</span><span class="k">e</span> <span class="p">~</span><span class="sr">/.config/</span>nvim/init.<span class="k">lua</span>
+</code></pre></div>
+<p>加入以下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 空格 + t 快速在下方打开终端</span>
+<span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;leader&gt;t&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;:botright 10split | term&lt;CR&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;打开底部终端&#39;</span><span class="w"> </span><span class="p">})</span>
 
-
+<span class="c1">-- 在终端里按 Esc 直接退回到普通模式</span>
+<span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;Esc&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">[[&lt;C-\&gt;&lt;C-n&gt;]]</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;退出终端输入模式&#39;</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<hr />
+<h2 id="4">4. 配置说明</h2>
+<h3 id="_18">打开底部终端</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;leader&gt;t&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;:botright 10split | term&lt;CR&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;打开底部终端&#39;</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<ul>
+<li><code>n</code> 表示普通模式</li>
+<li><code>&lt;leader&gt;t</code> 表示按下「空格 + t」</li>
+<li><code>:botright 10split | term&lt;CR&gt;</code> 表示在底部打开一个 10 行高度的终端</li>
+<li><code>&lt;CR&gt;</code> 表示自动回车执行命令</li>
+</ul>
+<hr />
+<h3 id="_19">退出终端输入模式</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">vim</span><span class="p">.</span><span class="py">keymap</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;Esc&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">[[&lt;C-\&gt;&lt;C-n&gt;]]</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;退出终端输入模式&#39;</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<ul>
+<li><code>t</code> 表示终端模式</li>
+<li><code>&lt;Esc&gt;</code> 表示按下 Esc 键</li>
+<li><code>&lt;C-\&gt;&lt;C-n&gt;</code> 表示退出终端输入模式</li>
+<li>配置后不需要再手动按 <code>Ctrl + \</code> 和 <code>Ctrl + n</code></li>
+</ul>
+<hr />
+<h2 id="5">5. 使用效果</h2>
+<p>配置完成并重启 Neovim 后：</p>
+<ul>
+<li>按「空格 + t」在底部打开终端</li>
+<li>在终端中按 <code>Esc</code> 退出输入模式</li>
+<li>回到普通模式后，可以使用 <code>Ctrl + w</code> 切换窗口</li>
+<li>也可以输入 <code>:q</code> 关闭终端窗口</li>
+</ul>
+<hr />
+<h2 id="6">6. 小结</h2>
+<ul>
+<li>临时打开终端：<code>:term</code></li>
+<li>下方打开终端：<code>:split | term</code></li>
+<li>右侧打开终端：<code>:vsplit | term</code></li>
+<li>底部固定高度终端：<code>:botright 10split | term</code></li>
+<li>推荐快捷键：<code>&lt;leader&gt;t</code></li>
+<li>推荐退出方式：<code>Esc</code></li>
+</ul>
 
 
 
